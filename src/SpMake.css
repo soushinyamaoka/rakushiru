@@ -1,0 +1,332 @@
+.recipe.recipe_edit {
+    overflow: hidden;
+    padding-bottom: 50px;
+}
+
+.sblock .title {
+    margin: 0;
+}
+
+.title {
+    background: #fbf9f3;
+    color: #4c4a40;
+    border-bottom: 1px solid #E8E4D8;
+    border-top: 1px solid #E8E4D8;
+    display: block;
+    padding: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.2;
+    position: relative;
+    letter-spacing: 0.02em;
+}
+
+.open_modal_window {
+    min-width: 60px;
+    text-decoration: none;
+}
+
+.sblock .content {
+    padding: 10px;
+}
+
+#update_photo {
+    position: relative;
+    width: auto;
+    padding: 0 0 10px 0;
+    margin: 0 auto;
+}
+
+#update_photo .inner {
+    position: absolute;
+    top: 86px;
+    left: 50%;
+}
+
+#update_photo .recipe_photo_update_form_container {
+    margin-top: 5px;
+    position: relative;
+}
+
+.center {
+    text-align: center;
+}
+
+.photo_icon {
+    vertical-align: middle;
+    padding-bottom: 3px;
+}
+
+#update_photo .file_field {
+    top: -245px;
+    width: 100%;
+    height: 240px;
+    margin: 0 auto;
+    opacity: 0;
+    position: absolute;
+    display: block;
+    border: 1px solid #000;
+}
+
+.hidden {
+    display: none;
+    overflow: hidden;
+    text-indent: -9999px;
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+}
+
+a:link,
+a:visited,
+a:hover {
+    color: #4c4a40;
+}
+
+
+/* 編集画面 */
+
+#modal_window {
+    height: 100%;
+    width: 100%;
+    background-color: #fbf9f3;
+    position: absolute;
+    top: 0;
+    padding: 2%;
+    box-sizing: border-box;
+    z-index: 9999;
+}
+
+.recipe_update_form {
+    background-color: #ffffff;
+    border-radius: 5px;
+    border: 1px solid #eae8e3;
+    padding: 5px;
+}
+
+.navi {
+    *zoom: 1;
+    padding: 5px 0;
+}
+
+.navi .cancel,
+.navi .save_and_lenth_check {
+    width: 33%;
+}
+
+.navi .cancel {
+    height: 30px;
+    min-height: 30px;
+    line-height: 30px;
+}
+
+.navi .cancel,
+.navi .edit_item_name,
+.navi .save_and_lenth_check {
+    float: left;
+}
+
+.navi .edit_button {
+    min-width: 60px;
+    line-height: 1.9;
+}
+
+.button.action,
+a.button.action,
+input[type='submit'].button.action {
+    text-shadow: 0 -1px 0 #d4d0c6;
+    border: 0;
+    background: #eae8e3;
+    background: #eae8e3;
+    background: -moz-linear-gradient(top, #eae8e3, #eae8e3);
+    background: -webkit-gradient(linear, left top, left bottom, from(#eae8e3), to(#eae8e3));
+    background: linear-gradient(to bottom, #eae8e3, #eae8e3);
+    text-shadow: none;
+    margin: 0;
+}
+
+.button.min,
+a.button.min,
+input[type='submit'].button.min {
+    display: inline-block;
+    min-width: 0;
+    padding: 5px 8px;
+    font-size: 12px;
+    font-weight: normal !important;
+}
+
+a:link,
+a:visited,
+a:hover {
+    color: #4c4a40;
+}
+
+a.button {
+    text-decoration: none;
+}
+
+.navi .edit_item_name {
+    width: 34%;
+    text-align: center;
+    line-height: 32px;
+    min-height: 32px;
+    font-weight: 600;
+    overflow: hidden;
+    color: #4E2100;
+}
+
+.navi .save_and_lenth_check {
+    text-align: right;
+}
+
+.navi .cancel,
+.navi .save_and_lenth_check {
+    width: 33%;
+}
+
+.navi .cancel,
+.navi .edit_item_name,
+.navi .save_and_lenth_check {
+    float: left;
+}
+
+.recipe_update_form #counter {
+    min-height: 30px;
+    line-height: 30px;
+    display: inline-block;
+    font-weight: 600;
+    padding-right: 5px;
+}
+
+.recipe_update_form .save_button,
+.recipe_update_form .cancel_button {
+    min-width: 70px;
+}
+
+.navi:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+#recipe_update_form .inner textarea {
+    height: 110px;
+    padding: 5px;
+    font-size: 0.9em;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="tel"],
+input[type="search"],
+input[type="number"],
+textarea {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #4c4a40;
+    border: 1px solid #bfbcb0;
+    padding: 0 8px;
+    width: 100%;
+    font-size: 16px;
+    -webkit-appearance: textfield;
+    border-radius: 5px;
+}
+
+#recipe_update_form .serving_for_container {
+    padding: 10px 5px;
+    margin-top: 3px;
+    border-top: 1px solid #eae8e3;
+}
+
+#recipe_update_form table.ingredients {
+    width: 100%;
+    border-top: 1px solid #eae8e3;
+}
+
+table {
+    border-spacing: 0;
+}
+
+table {
+    font-size: inherit;
+    font: 100%;
+}
+
+table {
+    border-spacing: 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table {
+    display: table;
+    border-collapse: separate;
+    box-sizing: border-box;
+    text-indent: initial;
+    border-spacing: 2px;
+    border-color: gray;
+}
+
+#smartphone_page input[type="text"],
+#smartphone_page input[type="password"],
+#smartphone_page input[type="email"],
+#smartphone_page input[type="tel"],
+#smartphone_page input[type="number"],
+#smartphone_page textarea {
+    -webkit-appearance: none;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="tel"],
+input[type="search"],
+input[type="number"] {
+    height: 40px;
+}
+
+#recipe_update_form .inner {
+    margin: 0 5px;
+}
+
+#recipe_update_form .inner .navi {
+    *zoom: 1;
+    padding: 5px 0;
+}
+
+#recipe_update_form .inner .navi .cancel,
+#recipe_update_form .inner .navi .save_and_lenth_check {
+    width: 33%;
+}
+
+#recipe_update_form .create {
+    width: 34%;
+    float: left;
+    text-align: center;
+}
+
+#recipe_update_form .inner .navi .save_and_lenth_check {
+    text-align: right;
+}
+
+#recipe_update_form .inner .navi .cancel,
+#recipe_update_form .inner .navi .save_and_lenth_check {
+    width: 33%;
+}
+
+#recipe_update_form .inner .navi .cancel,
+#recipe_update_form .inner .navi .edit_item_name,
+#recipe_update_form .inner .navi .save_and_lenth_check {
+    float: left;
+}
+
+#recipe_update_form .inner .navi:after {
+    content: "";
+    display: block;
+    clear: both;
+}
