@@ -1,4 +1,4 @@
-.recipe.recipe_edit {
+.recipe_edit {
     overflow: hidden;
     padding-bottom: 50px;
 }
@@ -329,4 +329,112 @@ input[type="number"] {
     content: "";
     display: block;
     clear: both;
+}
+
+.MaterialList {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.MaterialListItem {
+    align-items: center;
+    border-bottom: 2px dotted #f0efef;
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+}
+
+.MaterialListItemValue {
+    align-items: center;
+    color: #151413;
+    display: inline-flex;
+    flex-flow: row nowrap;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: .25px;
+    line-height: 150%;
+}
+
+.HowList {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.HowListItem {
+    font-size: 14px;
+    line-height: 1.5;
+    align-items: flex-start;
+    border-bottom: 2px dotted #f0efef;
+    color: #151413;
+    display: flex;
+    padding: 8px 0;
+}
+
+.HowListItemOrder {
+    flex: 0 0 auto;
+    font-weight: bold;
+    margin: 0 4px 0 0;
+}
+
+.finish_edit {
+    position: fixed;
+    bottom: 0;
+    z-index: 10;
+    box-shadow: #efefef 1px -1px;
+    background: #fbf9f3;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #bfbcb0;
+    width: 100%;
+    *zoom: 1;
+}
+
+.dly-Button {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    line-height: 130%;
+    height: 35px;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(1.28%, #ffaa4e), color-stop(74.02%, #febc56));
+    background-image: linear-gradient(180deg, #ffaa4e 1.28%, #febc56 74.02%);
+    border-radius: 10px;
+    color: #fff;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: block;
+    outline: none;
+    padding: 10px;
+    position: relative;
+    text-decoration: none;
+    margin: 10px;
+}
+
+.dly-Button .dly-Button-body {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    position: relative;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(1.28%, #ffaa4e), color-stop(74.02%, #febc56));
+    background-image: linear-gradient(180deg, #ffaa4e 1.28%, #febc56 74.02%);
+    border-radius: 100px;
+    color: #fff;
 }

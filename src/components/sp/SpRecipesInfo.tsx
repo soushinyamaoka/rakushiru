@@ -4,9 +4,30 @@ import RecipeModel from '../../module/RecipeModel';
 import Service from '../../module/Service';
 import "../../SpInfo.css";
 
-const SpRecipesInfoTemp = (howModel: { index: number; how: string; }[],
-  materialModel: { index: number; name: string; amount: string; }[],
-  recipeModel: { RecipeCode: number; title: string; info: string; serving: number; imgae: string; }) => {
+const SpRecipesInfo = () => {
+
+  const model = new RecipeModel();
+  const service = new Service(model);
+  const howModel = model.howModel;
+  const materialModel = model.materialModel;
+  const recipeModel = model.recipeModel;
+
+  console.log("A")
+  service.requData.reqCode = "RecipesInfoSelect"
+  service.requData.data = model
+  service.send(service.requData).then(res => {
+    console.log("E")
+    console.log(res)
+    // console.log(res)
+    // const m = service.getData();
+    console.log("結果")
+    // console.log(m)
+    //     console.log("返信が来ました")
+    //     console.log(res.data)
+    //     this.model = res.data;
+    //     //this.setState({ persons });
+  })
+
   return (
     <>
       <SpHeader />
@@ -90,19 +111,6 @@ const SpRecipesInfoTemp = (howModel: { index: number; how: string; }[],
       </div>
     </>
   );
-}
-
-class SpRecipesInfo extends React.Component {
-  private recipeModel = new RecipeModel();
-  private service = new Service();
-
-  componentDidMount() {
-    this.service.send();
-  }
-
-  render() {
-    return SpRecipesInfoTemp(this.recipeModel.howModel, this.recipeModel.materialModel, this.recipeModel.recipeModel)
-  }
 }
 
 export default SpRecipesInfo;

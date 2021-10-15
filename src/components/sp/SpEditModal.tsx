@@ -2,12 +2,14 @@ import React, { useState, useRef } from 'react';
 import "../../SpMake.css";
 
 const SpEditModal = (props) => {
+
   const closeModal = () => {
     props.setShowModal(0);
   };
   const add = (model, setModel) => {
     setModel([...model, { index: model.length + 1, name: "", amount: "" }])
   };
+
   const upRow = (n, model, setModel) => {
     if (n - 1 < 0) return
     const model_copy = model.slice()
@@ -15,16 +17,25 @@ const SpEditModal = (props) => {
     setModel(model_copy)
 
   };
+
   const downRow = (n, model, setModel) => {
     if (n + 2 > model.length) return
     const model_copy = model.slice()
     model_copy.splice(n, 2, model_copy[n + 1], model_copy[n])
     setModel(model_copy)
   };
+
   const delRow = (n, model, setModel) => {
     if (model.length === 1) return
     const model_copy = model.slice()
     model_copy.splice(n, 1)
+    setModel(model_copy)
+  };
+
+  const changeValue = (e, index, model, setModel, key) => {
+    const value = e.target.value;
+    const model_copy = model.slice()
+    model_copy[index][key] = value
     setModel(model_copy)
   };
 
@@ -39,21 +50,24 @@ const SpEditModal = (props) => {
           <input
             className="text-field sortable_line_name ingredient_name_0 disable_invalid_character"
             placeholder="例）豚肉"
-            value={model.name}>
+            defaultValue={model.name}
+            onChange={(e) => changeValue(e, index, materialModel, setMaterialModel, "name")}
+          >
           </input>
           <div className="delete_container">
-            <a className="delete" onClick={delRow.bind(this, index, materialModel, setMaterialModel)}>削除</a>
+            <a className="delete" onClick={ () => delRow(index, materialModel, setMaterialModel) }>削除</a>
           </div>
           <div className="position_change_container">
-            <a className="change_postion higher button action min" style={{ display: "inline-block" }} onClick={upRow.bind(this, index, materialModel, setMaterialModel)}>↑</a>
-            <a className="change_postion lower button action min" onClick={downRow.bind(this, index, materialModel, setMaterialModel)}>↓</a>
+            <a className="change_postion higher button action min" style={{ display: "inline-block" }} onClick={ () => upRow(index, materialModel, setMaterialModel)}>↑</a>
+            <a className="change_postion lower button action min" onClick={ () => downRow(index, materialModel, setMaterialModel)}>↓</a>
           </div>
         </td>
         <td className="quantity">
           <input
             className="text-field sortable_line_quantity ingredient_quantity_0 disable_invalid_character"
             placeholder="例）350g"
-            value={model.amount}
+            defaultValue={model.amount}
+            onChange={(e) => changeValue(e, index, materialModel, setMaterialModel, "amount")}
           ></input>
         </td>
       </tr>
@@ -67,14 +81,15 @@ const SpEditModal = (props) => {
           <textarea 
             placeholder="作り方を入力してください"
             className="disable_invalid_character"
-            value = {model.how}
+            defaultValue = {model.how}
+            onChange={(e) => changeValue(e, index, howModel, setHowModel, "how")}
           ></textarea>
           <div className="delete_container">
-            <a className="delete" onClick={delRow.bind(this, index, howModel, setHowModel)}>削除</a>
+            <a className="delete" onClick={() => delRow(index, howModel, setHowModel)}>削除</a>
           </div>
           <div className="position_change_container">
-            <a className="change_postion higher button action min" style={{ display: "inline-block" }} onClick={upRow.bind(this, index, howModel, setHowModel)}>↑</a>
-            <a className="change_postion lower button action min" onClick={downRow.bind(this, index, howModel, setHowModel)}>↓</a>
+            <a className="change_postion higher button action min" style={{ display: "inline-block" }} onClick={ () => upRow(index, howModel, setHowModel)}>↑</a>
+            <a className="change_postion lower button action min" onClick={ () => downRow(index, howModel, setHowModel)}>↓</a>
           </div>
         </td>
       </tr>
@@ -119,7 +134,7 @@ const SpEditModal = (props) => {
                           <a className="edit_button dismiss_modal_window button action min" onClick={closeModal}>キャンセル</a>
                         </div>
                         <div className="create">
-                          <a className="edit_button add_ingredient button action min" onClick={add.bind(this, materialModel, setMaterialModel)}>材料を追加</a>
+                          <a className="edit_button add_ingredient button action min" onClick={ () => add(materialModel, setMaterialModel)}>材料を追加</a>
                         </div>
                         <div className="save_and_lenth_check">
                           <input value="保存" className="save_button button attention min" ></input>
@@ -140,10 +155,10 @@ const SpEditModal = (props) => {
                           <a className="edit_button dismiss_modal_window button action min" onClick={closeModal}>キャンセル</a>
                         </div>
                         <div className="create">
-                        <a className="edit_button add_ingredient button action min" onClick={add.bind(this, howModel, setHowModel)}>材料を追加</a>
+                        <a className="edit_button add_ingredient button action min" onClick={ () => add(howModel, setHowModel)}>材料を追加</a>
                         </div>
                         <div className="save_and_lenth_check">
-                          <input value="保存" className="save_button button attention min" ></input>
+                          <input value="保存" className="save_button button attention min"></input>
                         </div>
                       </div>
                     </div>

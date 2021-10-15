@@ -10,22 +10,22 @@ import HowToMake from './HowToMake';
 function test2(evt: any) {
   console.log("aaaaaaaaa")
   evt.preventDefault();
-        let form1 = document.getElementById('form1');
-        let xhr = new XMLHttpRequest();
+        // let form1 = document.getElementById('form1');
+        // let xhr = new XMLHttpRequest();
 
-        xhr.open("POST", "http://localhost:8080/user-form");
+        // xhr.open("POST", "http://localhost:8080/user-form");
 
-        xhr.addEventListener('load', (evt) => {
-            console.log('** xhr: load');
-            let response = JSON.parse(xhr.responseText);
-            console.log(response);
-            console.log(xhr);
-        });
-        xhr.addEventListener('error', (evt) => {
-            console.log('** xhr: error');
-        });
+        // xhr.addEventListener('load', (evt) => {
+        //     console.log('** xhr: load');
+        //     let response = JSON.parse(xhr.responseText);
+        //     console.log(response);
+        //     console.log(xhr);
+        // });
+        // xhr.addEventListener('error', (evt) => {
+        //     console.log('** xhr: error');
+        // });
 
-        xhr.send("aaaa");
+        // xhr.send("aaaa");
 }
 
 const test = () => {

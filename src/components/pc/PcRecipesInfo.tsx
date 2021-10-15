@@ -77,10 +77,12 @@ const PcRecipesInfoTemp = (howModel: { index: number; how: string; }[],
 
 class PcRecipesInfo extends React.Component {
   private recipeModel = new RecipeModel();
-  private service = new Service();
+  private service = new Service(this.recipeModel);
 
   componentDidMount() {
-    this.service.send();
+    this.service.requData.reqCode = "";
+    this.service.requData.data = this.recipeModel;
+    this.service.send(this.service.requData);
   }
 
   render() {

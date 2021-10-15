@@ -1,5 +1,19 @@
 export default class RecipeModel {
 
+  constructor() {
+    this.instance = this;
+    this.instance.setModel();
+  }
+
+  getInstance() {
+    if (this.instance) {
+      return this.instance;
+    }
+    return this;
+  }
+
+  private instance: RecipeModel
+
   public recipeModel: { RecipeCode: number; title: string; info: string; serving: number; imgae: string; } =
     {
       RecipeCode: 1,
@@ -78,4 +92,26 @@ export default class RecipeModel {
       how: "2、3、(A)を鍋に入れて中火にかけます。混ぜながら味を染み込ませ、水分が無くなったら完成です。お好みでごはんに乗せてお召し上がり下さい。"
     }
   ];
+
+  private models: { recipeInfo: any; material: any; how: any;} =
+    {
+      recipeInfo: null,
+      material: null,
+      how: null
+    };
+
+    
+
+    public setModel() {
+    this.models.recipeInfo = this.recipeModel
+    this.models.material = this.materialModel
+    this.models.recipeInfo = this.recipeModel
+  }
+
+  public getModel() {
+    this.models.recipeInfo = this.recipeModel
+    this.models.material = this.materialModel
+    this.models.how = this.howModel
+    return this.models
+  }
 }
