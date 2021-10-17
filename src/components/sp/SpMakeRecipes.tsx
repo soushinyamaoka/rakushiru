@@ -41,12 +41,19 @@ const SpMakeRecipes = () => {
   };
 
   const saveRecipe = () => {
-    service.requData.reqCode = "";
-    model.recipeInfo = recipeModel
-    model.material = materialModel
-    model.recipeInfo = recipeModel
-    service.requData.data = model;
-    service.send(service.requData);
+    service.requData.reqCode = "RecipesInfoSelect";
+    console.log("START")
+    const a = modelIns.models
+    console.log(a)
+    a.recipeInfo = recipeModel
+    console.log(a)
+    a.material = materialModel
+    console.log(a)
+    a.recipeInfo = recipeModel
+    console.log(a)
+    service.requData.data = a;
+    const test = { ...service.requData.data }
+    service.send(test);
   };
 
   return (

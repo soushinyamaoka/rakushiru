@@ -85,9 +85,9 @@ class PcRecipesInfo extends React.Component {
     this.service.send(this.service.requData);
   }
 
-  render() {
-    return PcRecipesInfoTemp(this.recipeModel.howModel, this.recipeModel.materialModel, this.recipeModel.recipeModel)
-  }
+  // render() {
+  //   return PcRecipesInfoTemp(this.recipeModel.howModel, this.recipeModel.materialModel, this.recipeModel.recipeInfoModel)
+  // }
 }
 
 

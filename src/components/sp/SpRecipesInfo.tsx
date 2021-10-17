@@ -1,32 +1,48 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import SpHeader from './SpHeader';
-import RecipeModel from '../../module/RecipeModel';
+import RecipeInfoModel from '../../module/RecipeModel';
 import Service from '../../module/Service';
 import "../../SpInfo.css";
 
+let modelIns: RecipeInfoModel
+let service: Service
+
+function init() {
+  modelIns = new RecipeInfoModel().getInstance();
+  service = new Service(modelIns);
+
+  service.requData.reqCode = "RecipesInfoSelect";
+}
+
 const SpRecipesInfo = () => {
+  init();
 
-  const model = new RecipeModel();
-  const service = new Service(model);
-  const howModel = model.howModel;
-  const materialModel = model.materialModel;
-  const recipeModel = model.recipeModel;
+  const [materialModel, setMaterialModel] = useState(modelIns.materialModel);
+  const [recipeInfoModel, setRecipeInfoModel] = useState(modelIns.recipeInfoModel);
+  const [howModel, setHowModel] = useState(modelIns.howModel);
+  const [showModal, setShowModal] = useState(0);
 
-  console.log("A")
-  service.requData.reqCode = "RecipesInfoSelect"
-  service.requData.data = model
-  service.send(service.requData).then(res => {
-    console.log("E")
-    console.log(res)
-    // console.log(res)
-    // const m = service.getData();
-    console.log("結果")
-    // console.log(m)
-    //     console.log("返信が来ました")
-    //     console.log(res.data)
-    //     this.model = res.data;
-    //     //this.setState({ persons });
-  })
+  useEffect(() => {
+    service.send(service.requData).then(res => {
+      console.log("E")
+      console.log(res)
+      // console.log(res)
+      // const m = service.getData();
+      console.log("結果")
+      // console.log(m)
+      //     console.log("返信が来ました")
+      //     console.log(res.data)
+      //     this.model = res.data;
+      //     //this.setState({ persons });
+      // const service = new Service(model);
+      const resData = res.data.Data
+      console.log(resData)
+      setMaterialModel(resData.Material)
+      setRecipeInfoModel(resData.RecipeInfo)
+      setHowModel(resData.How)
+      console.log(recipeInfoModel.Title)
+    })
+  }, [])
 
   return (
     <>
@@ -39,12 +55,12 @@ const SpRecipesInfo = () => {
                 <main className="SpApp-main" >
                   <div className="TitleAndIntroductionSp SpApp-titleAndIntroduction"  >
                     <div className="TitleAndIntroductionSp-title" >
-                      <h1 className="TitleAndIntroductionSp-titleBody" >{recipeModel.title}</h1>
+                      <h1 className="TitleAndIntroductionSp-titleBody" >{recipeInfoModel.Title}</h1>
                     </div>
                     <div className="TitleAndIntroductionSp-introduction" >
                       <div >
                         <div className="TitleAndIntroductionSp-introductionContent" >
-                          <div>{recipeModel.info}</div>
+                          <div>{recipeInfoModel.Info}</div>
                         </div>
                       </div>
                     </div>
@@ -56,7 +72,7 @@ const SpRecipesInfo = () => {
                           <div className="DlyW2aNutrientSlideUpModal-contentWrap">
                             <div className="DlyW2aNutrientSlideUpModal-nutrientWrap">
                               <div className="image-wrapper">
-                                <img src={recipeModel.imgae} className="resizeimage"></img>
+                                <img src={recipeInfoModel.Imgae} className="resizeimage"></img>
                               </div>
                             </div>
                           </div>
@@ -66,15 +82,15 @@ const SpRecipesInfo = () => {
                     <div className="MainContentWta-ingredients" >
                       <h2 className="MainContentWta-sectionTitle" >
                         <span className="MainContentWta-sectionTitleIngredients" >材料</span>
-                        <span className="MainContentWta-sectionTitleIngredientsServings" >({recipeModel.serving}人前)</span>
+                        <span className="MainContentWta-sectionTitleIngredientsServings" >({recipeInfoModel.Serving}人前)</span>
                       </h2>
                       <ul className="MainContentWta-ingredientsList" >
                         {materialModel.map((value) =>
                           <li className="MainContentWta-ingredientsListItem" >
                             <div className="MainContentWta-ingredientsListItemValue" >
-                              {value.name}
+                              {value.Name}
                             </div>
-                            <div className="MainContentWta-ingredientsListItemValue" >{value.amount}</div>
+                            <div className="MainContentWta-ingredientsListItemValue" >{value.Amount}</div>
                           </li>
                         )}
                       </ul>
@@ -86,8 +102,8 @@ const SpRecipesInfo = () => {
                       <ul className="MainContentWta-instructionsList" >
                         {howModel.map((value) =>
                           <li className="MainContentWta-instructionsListItem" >
-                            <span className="MainContentWta-instructionsListItemOrder" >{value.index}</span>
-                            <div className="MainContentWta-instructionsListItemBody" >{value.how}</div>
+                            <span className="MainContentWta-instructionsListItemOrder" >{value.Index}</span>
+                            <div className="MainContentWta-instructionsListItemBody" >{value.How}</div>
                           </li>
                         )}
                       </ul>
