@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import "../../SpHome.css";
 
 const Home = () => {
+  const recipeId = "12345"
   return (
     <>
       <SpHeader />
@@ -104,7 +105,13 @@ const Home = () => {
                           <div className="video-list-info" >
                             <div className="video-list-title" >
                               <p className="dly-video-item-title-root mobile small"  >
-                              <Link to="/RecipesInfo">居酒屋さんメニュー！キュウリの塩昆布和え</Link>
+                              <Link
+                                to={{
+                                  pathname: "/RecipesInfo",
+                                  state: { recipeId }
+                                }} 
+                                >居酒屋さんメニュー！キュウリの塩昆布和え
+                              </Link>
                               </p>
                             </div>  </div>
                         </div>

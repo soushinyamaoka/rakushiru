@@ -1,0 +1,12 @@
+{
+    "serveInfo": {
+        "protocol": "http://",
+        "host": "localhost",
+        "port": "8080",
+        "searchRecipe": "recipeInfo",
+        "saveRecipe": "saveRecipe"
+    },
+    "default": {
+        "image": "sp_up_image.png"
+    }
+}

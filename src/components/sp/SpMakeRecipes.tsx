@@ -1,21 +1,48 @@
 import "../../SpMake.css";
 import Modal from "./SpEditModal";
 import React, { useState, useEffect } from 'react';
-import RecipeModel from '../../module/RecipeModel';
+import { useLocation, useHistory } from "react-router-dom";
+import { RecipeModel } from '../../module/RecipeModel';
+import { Const } from '../../module/Const';
 import Service from '../../module/Service';
-import { convertCompilerOptionsFromJson } from "typescript";
+import config from '../../config.json';
 
+let modelIns: RecipeModel
+let service: Service
+const TITLE = ["", "レシピタイトル", "写真", "キャッチコピー", "材料", "作り方"]
 
+function Init() {
+
+  modelIns = new RecipeModel();
+  service = new Service();
+}
 const SpMakeRecipes = () => {
+  Init();
 
-  const modelIns = new RecipeModel().getInstance()
-  const model = modelIns.getModel();
-  const [materialModel, setMaterialModel] = useState(model.material);
-  const [recipeModel, setRecipeModel] = useState(model.recipeInfo);
-  const [howModel, setHowModel] = useState(model.how);
+  const [recipeModel, setRecipeModel] = useState(modelIns.recipeModel);
+  const [ingredientModel, setIngredientModel] = useState(modelIns.ingredientModel);
+  const [instModel, setInstModel] = useState(modelIns.instModel);
   const [showModal, setShowModal] = useState(0);
-  const defaultImage = process.env.PUBLIC_URL + "/sp_up_image.png";
-  const service = new Service(model);
+  const [editTitle, setEditTitle] = useState("");
+  const defaultImage = process.env.PUBLIC_URL + "/" + config.default.image;
+  const service = new Service();
+  const history: any = useHistory();
+  const location: any = useLocation();
+  if (location.state && location.state.recipeId) {
+    recipeModel.RecipeId = location.state.recipeId;
+    service.reqParam.Data = recipeModel;
+  }
+
+  useEffect(() => {
+    if (service.reqParam.Data && service.reqParam.Data.Recipes.RecipeId) {
+      service.send(service.reqParam).then(res => {
+        const resData = res.data.Data
+        setIngredientModel(resData.Ingredients)
+        setRecipeModel(resData.Recipes[0])
+        setInstModel(resData.Instructions)
+      })
+    }
+  }, [])
 
   function onFileChange(e: React.ChangeEvent<HTMLInputElement>) {
 
@@ -28,7 +55,7 @@ const SpMakeRecipes = () => {
       var reader = new FileReader()
       const model_copy = { ...recipeModel }
       reader.onload = (e) => {
-        model_copy.imgae = String(e.target!.result)
+        model_copy.Image = String(e.target!.result)
         setRecipeModel(model_copy)
       };
       reader.readAsDataURL(file)
@@ -37,23 +64,23 @@ const SpMakeRecipes = () => {
   }
 
   const ShowModal = (modalNo: number) => {
+    setEditTitle(TITLE[modalNo]);
     setShowModal(modalNo);
   };
 
   const saveRecipe = () => {
-    service.requData.reqCode = "RecipesInfoSelect";
-    console.log("START")
-    const a = modelIns.models
-    console.log(a)
-    a.recipeInfo = recipeModel
-    console.log(a)
-    a.material = materialModel
-    console.log(a)
-    a.recipeInfo = recipeModel
-    console.log(a)
-    service.requData.data = a;
-    const test = { ...service.requData.data }
-    service.send(test);
+    service.reqParam.ReqCode = "saveRecipe";
+    modelIns.models.Recipes[0] = recipeModel;
+    modelIns.models.Instructions = instModel;
+    modelIns.models.Ingredients = ingredientModel;
+    service.reqParam.Data = modelIns.models;
+    service.send(service.reqParam).then(res => {
+      alert("保存しました")
+    })
+  };
+
+  const backPage = () => {
+    history.push('/'); // 画面遷移
   };
 
   return (
@@ -61,94 +88,112 @@ const SpMakeRecipes = () => {
       <Modal
         showModal={showModal}
         setShowModal={setShowModal}
-        materialModel={materialModel}
-        setMaterialModel={setMaterialModel}
+        ingredientModel={ingredientModel}
+        setIngredientModel={setIngredientModel}
         recipeModel={recipeModel}
-        setRecipeModell={setRecipeModel}
-        howModel={howModel}
-        setHowModel={setHowModel}
+        setRecipeModel={setRecipeModel}
+        instModel={instModel}
+        setInstModel={setInstModel}
+        editTitle={editTitle}
       />
-      <div className="recipe_edit">
-        <div className="recipe_edit_container" id="edit_main">
+      <div className="recipe-edit">
+        <div className="recipe-edit-container" id="edit-main">
           <div className="sblock">
-            <div className="title">レシピタイトル</div>
-            <a className="open_modal_window" onClick={(e) => {ShowModal(1)}}>
-              <div className="content" id="title">
-                {recipeModel.title}
-              </div>
-            </a>
-            <div className="title">写真</div>
-            <div className="center content" data-thumbnail-path="https://assets.cpcdn.com/assets/device/recipe_edit_placeholder.png?9c42ea49292fad568d6756473f63a910476887d02aabf0f147e5a5a84e27fa3f" id="update_photo">
-              {(recipeModel.imgae) ? (
-                <img width="100%" className="photo" id="recipe_main_photo" src={recipeModel.imgae} alt="Recipe edit placeholder"></img>
+            {/* レシピタイトル */}
+            <div className="title">{TITLE[Const.RECIPE_TITLE_NO]}</div>
+            <div className="open-modal-window">
+              {(!recipeModel.Title) ? (
+                <div className="content description">
+                  <div className="guide" onClick={(e) => { ShowModal(Const.RECIPE_TITLE_NO) }}>タップして入力する</div>
+                </div>
               ) : (
-                <img width="100%" className="photo" id="recipe_main_photo" src={defaultImage} alt="Recipe edit placeholder"></img>
+                <div className="introduction">
+                  <div className="guide" onClick={(e) => { ShowModal(Const.RECIPE_TITLE_NO) }}>{recipeModel.Title}</div>
+                </div>
               )}
-              <div className="recipe_photo_update_form_container center">
-                <input className="file_field" type="file" name="recipe[uploaded_photo]" id="recipe_uploaded_photo" style={{ top: "-320.516px", left: 0, height: 316 }}
+            </div>
+            {/* 写真 */}
+            <div className="title">{TITLE[Const.RECIPE_IMAGE]}</div>
+            <div className="center content" data-thumbnail-path="https://assets.cpcdn.com/assets/device/recipe-edit-placeholder.png?9c42ea49292fad568d6756473f63a910476887d02aabf0f147e5a5a84e27fa3f" id="update-photo">
+              {(!recipeModel.Image) ? (
+                <img width="100%" className="photo" id="recipe-main-photo" src={defaultImage} alt="Recipe edit placeholder"></img>
+              ) : (
+                <img width="100%" className="photo" id="recipe-main-photo" src={recipeModel.Image} alt="Recipe edit placeholder"></img>
+              )}
+              <div className="recipe-photo-update-form-container center">
+                <input className="file-field" type="file" name="recipe[uploaded-photo]" id="recipe-uploaded-photo" style={{ top: "-320.516px", left: 0, height: 316 }}
                   onChange={(e) => { onFileChange(e) }}></input>
               </div>
             </div>
+            {/* キャッチコピー */}
             <div className="title">
-              キャッチコピー
+              {TITLE[Const.RECIPE_INTRO_NO]}
             </div>
-            <a className="open_modal_window">
-              <div className="content" id="description">
-                {(recipeModel.info) ? (
-                  <div className="guide" onClick={(e) => {ShowModal(2)}}>{recipeModel.info}</div>
+            <div className="open-modal-window">
+              <div className="content description">
+                {(!recipeModel.Introduction) ? (
+                  <div className="guide" onClick={(e) => { ShowModal(Const.RECIPE_INTRO_NO) }}>タップして入力する</div>
                 ) : (
-                  <div className="guide" onClick={(e) => {ShowModal(2)}}>タップして入力する</div>
+                  <div className="guide" onClick={(e) => { ShowModal(Const.RECIPE_INTRO_NO) }}>{recipeModel.Introduction}</div>
                 )}
               </div>
-            </a>
-            <div className="title">
-              材料
             </div>
-            <a className="open_modal_window">
-              {(materialModel.length) ? (
-                <ul className="MaterialList" >
-                  {materialModel.map((model) =>
-                    <li className="MaterialListItem" >
-                      <div className="MaterialListItemValue" >
-                        {model.name}
-                      </div>
-                      <div className="MaterialListItemValue" >{model.amount}</div>
+            {/* 材料 */}
+            <div className="title">
+              {TITLE[Const.RECIPE_INGRE_NO]}
+            </div>
+            <div className="open-modal-window">
+              {(ingredientModel.length === 1 && !ingredientModel[0].Name && !ingredientModel[0].Quantity) ? (
+                <div className="content description">
+                  <div className="guide" onClick={(e) => { ShowModal(Const.RECIPE_INGRE_NO) }}>タップして入力する</div>
+                </div>
+              ) : (
+                <ul className="IngredientList" >
+                  {ingredientModel.map((model) =>
+                    <li key={model.OrderNo} className="IngredientListItem" onClick={(e) => { ShowModal(Const.RECIPE_INGRE_NO) }}>
+                      <div className="IngredientListItemValue">
+                        <span className="HowListItemOrder" >{model.OrderNo}</span>
+                        {model.Name}
+                        </div>
+                      <div className="IngredientListItemValue" >{model.Quantity}</div>
                     </li>
                   )}
                 </ul>
-              ) : (
-                <div className="content" id="description">
-                  <div className="guide" onClick={(e) => {ShowModal(3)}}>タップして入力する</div>
-                </div>
               )}
-            </a>
-            <div className="title">
-              作り方
             </div>
-            <a className="open_modal_window">
-              {(howModel.length) ? (
+            {/* 作り方 */}
+            <div className="title">
+              {TITLE[Const.RECIPE_INST_NO]}
+            </div>
+            <div className="open-modal-window">
+              {(instModel.length === 1 && !instModel[0].Detail) ? (
+                <div className="content description">
+                  <div className="guide" onClick={(e) => { ShowModal(Const.RECIPE_INST_NO) }}>タップして入力する</div>
+                </div>
+              ) : (
                 <ul className="HowList" >
-                  {howModel.map((model) =>
-                    <li className="HowListItem" >
-                      <span className="HowListItemOrder" >{model.index}</span>
-                      <div className="HowListListItemBody" >{model.how}</div>
+                  {instModel.map((model) =>
+                    <li key={model.OrderNo} className="HowListItem" onClick={(e) => { ShowModal(Const.RECIPE_INST_NO) }}>
+                      <span className="HowListItemOrder" >{model.OrderNo}</span>
+                      <div className="HowListListItemBody" >{model.Detail}</div>
                     </li>
                   )}
                 </ul>
-              ) : (
-                <div className="content" id="description">
-                  <div className="guide" onClick={(e) => {ShowModal(4)}}>タップして入力する</div>
-                </div>
               )}
-            </a>
+            </div>
           </div>
         </div>
-        <div className="finish_edit">
-          <button className="dly-Button dly-Button--contained ">
-            <div className="dly-Button-body dly-Button-body--contained">キャンセル</div>
+        <div className="finish-edit">
+          <button className="edit-Button edit-Button--contained ">
+            <div className="edit-Button-body edit-Button-body--contained"
+              onClick={(e) => { backPage() }}
+            >キャンセル</div>
           </button>
-          <button className="dly-Button dly-Button--contained">
-            <div className="dly-Button-body dly-Button-body--contained" onClick={(e) => {saveRecipe()}}>保存</div>
+          <button className="edit-Button edit-Button--contained">
+            <div
+              className="edit-Button-body edit-Button-body--contained"
+              onClick={(e) => { saveRecipe() }}
+            >保存</div>
           </button>
         </div>
       </div>

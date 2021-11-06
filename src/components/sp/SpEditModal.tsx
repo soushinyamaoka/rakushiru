@@ -1,13 +1,39 @@
 import React, { useState, useRef } from 'react';
+import { RecipeModel, Recipes, Ingredients, Instructions } from '../../module/RecipeModel';
+import { Const } from '../../module/Const';
 import "../../SpMake.css";
 
 const SpEditModal = (props) => {
+
+  if (!props.recipeModel.recipeId) {
+    props.ingredientModel[0].OrderNo = 1
+    props.instModel[0].OrderNo = 1
+  }
+
+  const [rModel, setRModel] = useState(props.recipeModel);
+  const [mModel, setMModel] = useState(props.ingredientModel);
+  const [iModel, setIModel] = useState(props.instModel);
+  const recipeId: string = props.recipeModel.recipeId;
+  const editTitle: string = props.editTitle;
+
+  const saveData = () => {
+    props.setRecipeModel(rModel);
+    props.setIngredientModel(mModel);
+    props.setInstModel(iModel);
+    props.setShowModal(0);
+  };
 
   const closeModal = () => {
     props.setShowModal(0);
   };
   const add = (model, setModel) => {
-    setModel([...model, { index: model.length + 1, name: "", amount: "" }])
+    const ingredient: Ingredients = {
+      RecipeId: recipeId,
+      OrderNo: model.length + 1,
+      Name: '',
+      Quantity: ''
+    }
+    setModel([...model, ingredient])
   };
 
   const upRow = (n, model, setModel) => {
@@ -32,141 +58,160 @@ const SpEditModal = (props) => {
     setModel(model_copy)
   };
 
-  const changeValue = (e, index, model, setModel, key) => {
+  const changeValue = (e: React.ChangeEvent<any>,
+    index: number, model: any, setModel: any, key: string) => {
     const value = e.target.value;
-    const model_copy = model.slice()
-    model_copy[index][key] = value
-    setModel(model_copy)
+    if (model.length) {
+      const model_copy = model.slice()
+      model_copy[index][key] = value
+      setModel(model_copy)
+    } else {
+      const model_copy = model
+      model_copy[key] = value
+      setModel(model_copy)
+    }
   };
 
-  const [materialModel, setMaterialModel] = useState(props.materialModel);
-  const [recipeModel, setRecipeModel] = useState(props.recipeModel);
-  const [howModel, setHowModel] = useState(props.howModel);
-
-  const MaterialRow = materialModel.map((model, index) =>
+  // 材料
+  const IngredientRow = mModel.map((model, index) =>
     <>
-      <tr key={String(index)}>
-        <td className="name">
+      <div key={String(index)} className="ingredient-container">
+        <div className="name">
           <input
-            className="text-field sortable_line_name ingredient_name_0 disable_invalid_character"
+            className="text-field sortable-line-name ingredient-name-0 disable-invalid-character"
             placeholder="例）豚肉"
-            defaultValue={model.name}
-            onChange={(e) => changeValue(e, index, materialModel, setMaterialModel, "name")}
+            defaultValue={model[RecipeModel.NAME]}
+            onChange={(e) => changeValue(e, index, mModel, setMModel, RecipeModel.NAME)}
           >
           </input>
-          <div className="delete_container">
-            <a className="delete" onClick={ () => delRow(index, materialModel, setMaterialModel) }>削除</a>
-          </div>
-          <div className="position_change_container">
-            <a className="change_postion higher button action min" style={{ display: "inline-block" }} onClick={ () => upRow(index, materialModel, setMaterialModel)}>↑</a>
-            <a className="change_postion lower button action min" onClick={ () => downRow(index, materialModel, setMaterialModel)}>↓</a>
-          </div>
-        </td>
-        <td className="quantity">
+        </div>
+        <div className="quantity">
           <input
-            className="text-field sortable_line_quantity ingredient_quantity_0 disable_invalid_character"
+            className="text-field sortable-line-quantity ingredient-quantity-0 disable-invalid-character"
             placeholder="例）350g"
-            defaultValue={model.amount}
-            onChange={(e) => changeValue(e, index, materialModel, setMaterialModel, "amount")}
+            defaultValue={model[RecipeModel.QUANTITY]}
+            onChange={(e) => changeValue(e, index, mModel, setMModel, RecipeModel.QUANTITY)}
           ></input>
-        </td>
-      </tr>
+        </div>
+      </div>
+      <div className="control-area">
+        <div className="delete-area">
+          <button className="delete" onClick={() => delRow(index, iModel, setIModel)}>削除</button>
+        </div>
+        <div className="up-down-area">
+          <button className="up-button" style={{ display: "inline-block" }} onClick={() => upRow(index, iModel, setIModel)}>↑</button>
+        </div>
+        <div className="up-down-area">
+          <button className="down-button" onClick={() => downRow(index, iModel, setIModel)}>↓</button>
+        </div>
+      </div>
     </>
   );
 
-  const HowRow = howModel.map((model, index) =>
+  // 作り方
+  const InstRow = iModel.map((model, index) =>
     <>
-      <tr key={String(index)}>
-        <td className="name">
-          <textarea 
-            placeholder="作り方を入力してください"
-            className="disable_invalid_character"
-            defaultValue = {model.how}
-            onChange={(e) => changeValue(e, index, howModel, setHowModel, "how")}
-          ></textarea>
-          <div className="delete_container">
-            <a className="delete" onClick={() => delRow(index, howModel, setHowModel)}>削除</a>
+      <div key={String(index)} className="instructions-container">
+        <textarea
+          placeholder="作り方を入力してください"
+          className="disable-invalid-character"
+          defaultValue={model[RecipeModel.INSTRUCTIONS]}
+          onChange={(e) => changeValue(e, index, iModel, setIModel, RecipeModel.DETAIL)}
+        ></textarea>
+        <div className="control-area">
+          <div className="delete-area">
+            <button className="delete" onClick={() => delRow(index, iModel, setIModel)}>削除</button>
           </div>
-          <div className="position_change_container">
-            <a className="change_postion higher button action min" style={{ display: "inline-block" }} onClick={ () => upRow(index, howModel, setHowModel)}>↑</a>
-            <a className="change_postion lower button action min" onClick={ () => downRow(index, howModel, setHowModel)}>↓</a>
+          <div className="up-down-area">
+            <button className="up-button" style={{ display: "inline-block" }} onClick={() => upRow(index, iModel, setIModel)}>↑</button>
           </div>
-        </td>
-      </tr>
+          <div className="up-down-area">
+            <button className="down-button" onClick={() => downRow(index, iModel, setIModel)}>↓</button>
+          </div>
+        </div>
+      </div>
     </>
   );
 
   return (
     <>
       {(props.showModal !== 0) ? (
-        <div id="modal_window" >
-          <div id="recipe_update_form" >
-            <div className="inner" >
-              <div id="edit_recipe_step_form" className="recipe_update_form">
-                <div className="navi">
-                  <div className="cancel">
-                    <a className="edit_button dismiss_modal_window button action min" onClick={closeModal}>キャンセル</a>
-                  </div>
-                  <div className="edit_item_name">
-                    作り方2
-                  </div>
-                  <div className="save_and_lenth_check">
-                    <div id="counter" style={{ color: "rgb(153, 153, 153)" }}>60</div>
-                    <input type="submit" name="commit" value="保存" className="save_button button attention min" ></input>
-                  </div>
-                </div>
-                {(props.showModal === 1) ? (
-                  <input type="text" placeholder="タイトルを入れる" maxLength={20}></input>
+        <div id="modal-window" >
+          <div className="edit-header">
+            <div className="edit-control">
+              <button className="edit-Button edit-Button--contained ">
+                <div className="edit-Button-body edit-Button-body--contained"
+                  onClick={closeModal}
+                >キャンセル</div>
+              </button>
+            </div>
+            <div className="edit-item-name">
+              {editTitle}
+            </div>
+            <div className="edit-control">
+              <button className="edit-Button edit-Button--contained">
+                <div className="edit-Button-body edit-Button-body--contained"
+                  onClick={(e) => { saveData() }}
+                >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;保存&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+              </button>
+            </div>
+          </div>
+          <div id="edit-main" className="edit-main">
+            <div id="recipe-update-form" className="recipe-update-form">
 
-                ) : (props.showModal === 2) ? (
-                  <textarea placeholder="作り方を入力してください" className="disable_invalid_character" maxLength={60}></textarea>
-
-                ) : (props.showModal === 3) ? (
-                  <>
-                    <table className="ingredients">
-                      <tbody>
-                        {MaterialRow}
-                      </tbody>
-                    </table>
-                    <div className="inner">
-                      <div className="navi">
-                        <div className="cancel">
-                          <a className="edit_button dismiss_modal_window button action min" onClick={closeModal}>キャンセル</a>
-                        </div>
-                        <div className="create">
-                          <a className="edit_button add_ingredient button action min" onClick={ () => add(materialModel, setMaterialModel)}>材料を追加</a>
-                        </div>
-                        <div className="save_and_lenth_check">
-                          <input value="保存" className="save_button button attention min" ></input>
-                        </div>
+              {/* タイトルを入力 */}
+              {(props.showModal === Const.RECIPE_TITLE_NO) ? (
+                <input
+                  type="text"
+                  placeholder="タイトルを入れる"
+                  maxLength={20}
+                  onChange={(e) => changeValue(e, 0, rModel, setRModel, RecipeModel.TITLE)}
+                ></input>
+                // キャッチコピーを入力
+              ) : (props.showModal === Const.RECIPE_INTRO_NO) ? (
+                <textarea
+                  placeholder="キャッチコピーを入力してください"
+                  className="disable-invalid-character"
+                  maxLength={60}
+                  onChange={(e) => changeValue(e, 0, rModel, setRModel, RecipeModel.INTRODUCTION)}
+                ></textarea>
+                // 材料を入力
+              ) : (props.showModal === Const.RECIPE_INGRE_NO) ? (
+                <>
+                  <div className="ingredients">
+                    {IngredientRow}
+                  </div>
+                  <div className="inner">
+                    <div className="navi">
+                      <div className="add-area">
+                        <button
+                          className="add"
+                          onClick={() => add(mModel, setMModel)}
+                        >材料を追加</button>
                       </div>
                     </div>
-                  </>
-                ) : (props.showModal === 4) ? (
-                  <>
-                    <table className="ingredients">
-                      <tbody>
-                        {HowRow}
-                      </tbody>
-                    </table>
-                    <div className="inner">
-                      <div className="navi">
-                        <div className="cancel">
-                          <a className="edit_button dismiss_modal_window button action min" onClick={closeModal}>キャンセル</a>
-                        </div>
-                        <div className="create">
-                        <a className="edit_button add_ingredient button action min" onClick={ () => add(howModel, setHowModel)}>材料を追加</a>
-                        </div>
-                        <div className="save_and_lenth_check">
-                          <input value="保存" className="save_button button attention min"></input>
-                        </div>
+                  </div>
+                </>
+                // 作り方を入力
+              ) : (props.showModal === Const.RECIPE_INST_NO) ? (
+                <>
+                  <div className="instructions">
+                    {InstRow}
+                  </div>
+                  <div className="inner">
+                    <div className="navi">
+                      <div className="add-area">
+                        <button
+                          className="add"
+                          onClick={() => add(iModel, setIModel)}
+                        >材料を追加</button>
                       </div>
                     </div>
-                  </>
-                ) : (
-                  <></>
-                )}
-              </div>
+                  </div>
+                </>
+              ) : (
+                <></>
+              )}
             </div>
           </div>
         </div>

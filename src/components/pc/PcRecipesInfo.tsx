@@ -1,7 +1,7 @@
 import "../../info.css";
 import Header from './Header';
 import SideBar from './SideBar';
-import RecipeModel from '../../module/RecipeModel';
+import { RecipeModel } from '../../module/RecipeModel';
 import Service from '../../module/Service';
 import axios from 'axios';
 import React from 'react';
@@ -77,7 +77,7 @@ const PcRecipesInfoTemp = (howModel: { index: number; how: string; }[],
 
 class PcRecipesInfo extends React.Component {
   private recipeModel = new RecipeModel();
-  private service = new Service(this.recipeModel);
+  private service = new Service();
 
   componentDidMount() {
     this.service.requData.reqCode = "";

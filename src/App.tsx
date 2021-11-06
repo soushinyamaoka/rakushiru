@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./App.css";
-import Home from './components/Home';
 import PcHome from './components/pc/Home';
 import SpHome from './components/sp/Home';
 import SpRecipesInfo from './components/sp/SpRecipesInfo';

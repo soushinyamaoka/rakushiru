@@ -1,4 +1,9 @@
-export default class RecipeModel {
+export interface Recipes { RecipeId: string; Title: string; Introduction: string; Serving: string; Image: string; }
+export interface Ingredients { RecipeId: string; OrderNo: number; Name: string; Quantity: string }
+export interface Instructions { RecipeId: string; OrderNo: number; Detail: string; }
+
+export class RecipeModel {
+  [x: string]: {};
 
   constructor() {
     this.instance = this;
@@ -13,27 +18,44 @@ export default class RecipeModel {
   }
 
   private instance: RecipeModel
+  static TITLE = "Title"
+  static INTRODUCTION = "Introduction"
+  static SERVING = "Serving"
+  static IMAGE = "Image"
+  static NAME = "Name"
+  static INGREDIENTS = "Ingredients"
+  static QUANTITY = "Quantity"
+  static DETAIL = "Detail"
+  static ORDER_NO = "OrderNo"
+  static INSTRUCTIONS = "Instructions"
 
-  public recipeInfoModel: { RecipeCode: number; Title: string; Info: string; Serving: number; Imgae: string; } =
-  {
-    RecipeCode: 1,
+  public recipeModel: Recipes = {
+    RecipeId: "",
     Title: "",
-    Info: "",
-    Serving: 1,
-    Imgae: ""
+    Introduction: "",
+    Serving: "",
+    Image: ""
   };
-    // {
-    //   RecipeCode: 1,
-    //   title: "ポリポリ食感 きゅうりの佃煮　レシピ・作り方",
-    //   info: "ごはんを食べる箸が止まらなくなるかも！？しょっぱい味が癖になる、ポリポリ食感きゅうりの佃煮です。簡単に作れる上に、食べ方はお好みで無限大に広がります。大量のきゅうりの消費にもオススメですよ。ぜひ作ってみて下さいね。",
-    //   serving: 4,
-    //   imgae: process.env.PUBLIC_URL + "/" + "food_sample.jpg"
-    // };
-  public materialModel: { Index: number; Name: string; Amount: string }[] = [
+  // {
+  //   RecipeId: "1",
+  //   Title: "",
+  //   Introduction: "",
+  //   Serving: 1,
+  //   Image: ""
+  // };
+  // {
+  //   RecipeCode: 1,
+  //   title: "ポリポリ食感 きゅうりの佃煮　レシピ・作り方",
+  //   info: "ごはんを食べる箸が止まらなくなるかも！？しょっぱい味が癖になる、ポリポリ食感きゅうりの佃煮です。簡単に作れる上に、食べ方はお好みで無限大に広がります。大量のきゅうりの消費にもオススメですよ。ぜひ作ってみて下さいね。",
+  //   serving: 4,
+  //   imgae: process.env.PUBLIC_URL + "/" + "food_sample.jpg"
+  // };
+  public ingredientModel: Ingredients[] = [
     {
-      Index: 1,
+      RecipeId: "",
+      OrderNo: 1,
       Name: "",
-      Amount: ""
+      Quantity: ""
     }
     // }
     // {
@@ -87,10 +109,11 @@ export default class RecipeModel {
     //   amount: "小さじ1/2"
     // }
   ];
-  public howModel: { Index: number; How: string }[] = [
+  public instModel: Instructions[] = [
     {
-      Index: 1,
-      How: ""
+      RecipeId: "",
+      OrderNo: 1,
+      Detail: ""
     }
     // {
     //   index: 1,
@@ -110,23 +133,24 @@ export default class RecipeModel {
     // }
   ];
 
-  public models: { recipeInfo: any; material: any; how: any;} =
+  public models: { Status: number; Recipes: any[]; Ingredients: any[]; Instructions: any[]; } =
     {
-      recipeInfo: null,
-      material: null,
-      how: null
+      Status: 0,
+      Recipes: [],
+      Ingredients: [],
+      Instructions: []
     };
 
-    public setModel() {
-    this.models.recipeInfo = this.recipeInfoModel
-    this.models.material = this.materialModel
-    this.models.how = this.howModel
+  public setModel() {
+    this.models.Recipes[0] = this.recipeModel
+    this.models.Ingredients = this.ingredientModel
+    this.models.Instructions = this.instModel
   }
 
   public getModel() {
-    this.models.recipeInfo = this.recipeInfoModel
-    this.models.material = this.materialModel
-    this.models.how = this.howModel
+    this.models.Recipes[0] = this.recipeModel
+    this.models.Ingredients[0] = this.ingredientModel
+    this.models.Instructions[0] = this.instModel
     return this.models
   }
 }

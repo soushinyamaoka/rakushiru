@@ -1,4 +1,4 @@
-.recipe_edit {
+.recipe-edit {
     overflow: hidden;
     padding-bottom: 50px;
 }
@@ -21,7 +21,7 @@
     letter-spacing: 0.02em;
 }
 
-.open_modal_window {
+.open-modal-window {
     min-width: 60px;
     text-decoration: none;
 }
@@ -30,20 +30,20 @@
     padding: 10px;
 }
 
-#update_photo {
+#update-photo {
     position: relative;
     width: auto;
     padding: 0 0 10px 0;
     margin: 0 auto;
 }
 
-#update_photo .inner {
+#update-photo .inner {
     position: absolute;
     top: 86px;
     left: 50%;
 }
 
-#update_photo .recipe_photo_update_form_container {
+#update-photo .recipe-photo-update-form-container {
     margin-top: 5px;
     position: relative;
 }
@@ -52,12 +52,12 @@
     text-align: center;
 }
 
-.photo_icon {
+.photo-icon {
     vertical-align: middle;
     padding-bottom: 3px;
 }
 
-#update_photo .file_field {
+#update-photo .file-field {
     top: -245px;
     width: 100%;
     height: 240px;
@@ -85,51 +85,6 @@ a:hover {
 
 
 /* 編集画面 */
-
-#modal_window {
-    height: 100%;
-    width: 100%;
-    background-color: #fbf9f3;
-    position: absolute;
-    top: 0;
-    padding: 2%;
-    box-sizing: border-box;
-    z-index: 9999;
-}
-
-.recipe_update_form {
-    background-color: #ffffff;
-    border-radius: 5px;
-    border: 1px solid #eae8e3;
-    padding: 5px;
-}
-
-.navi {
-    *zoom: 1;
-    padding: 5px 0;
-}
-
-.navi .cancel,
-.navi .save_and_lenth_check {
-    width: 33%;
-}
-
-.navi .cancel {
-    height: 30px;
-    min-height: 30px;
-    line-height: 30px;
-}
-
-.navi .cancel,
-.navi .edit_item_name,
-.navi .save_and_lenth_check {
-    float: left;
-}
-
-.navi .edit_button {
-    min-width: 60px;
-    line-height: 1.9;
-}
 
 .button.action,
 a.button.action,
@@ -165,32 +120,21 @@ a.button {
     text-decoration: none;
 }
 
-.navi .edit_item_name {
-    width: 34%;
-    text-align: center;
-    line-height: 32px;
-    min-height: 32px;
-    font-weight: 600;
-    overflow: hidden;
-    color: #4E2100;
-}
-
-.navi .save_and_lenth_check {
+.navi .save-and-lenth-check {
     text-align: right;
 }
 
 .navi .cancel,
-.navi .save_and_lenth_check {
+.navi .save-and-lenth-check {
     width: 33%;
 }
 
 .navi .cancel,
-.navi .edit_item_name,
-.navi .save_and_lenth_check {
+.navi .save-and-lenth-check {
     float: left;
 }
 
-.recipe_update_form #counter {
+.recipe-update-form #counter {
     min-height: 30px;
     line-height: 30px;
     display: inline-block;
@@ -198,8 +142,8 @@ a.button {
     padding-right: 5px;
 }
 
-.recipe_update_form .save_button,
-.recipe_update_form .cancel_button {
+.recipe-update-form .save-button,
+.recipe-update-form .cancel-button {
     min-width: 70px;
 }
 
@@ -209,7 +153,7 @@ a.button {
     clear: both;
 }
 
-#recipe_update_form .inner textarea {
+#recipe-update-form .inner textarea {
     height: 110px;
     padding: 5px;
     font-size: 0.9em;
@@ -234,13 +178,13 @@ textarea {
     border-radius: 5px;
 }
 
-#recipe_update_form .serving_for_container {
+#recipe-update-form .serving-for-container {
     padding: 10px 5px;
     margin-top: 3px;
     border-top: 1px solid #eae8e3;
 }
 
-#recipe_update_form table.ingredients {
+#recipe-update-form table.ingredients {
     width: 100%;
     border-top: 1px solid #eae8e3;
 }
@@ -272,12 +216,12 @@ table {
     border-color: gray;
 }
 
-#smartphone_page input[type="text"],
-#smartphone_page input[type="password"],
-#smartphone_page input[type="email"],
-#smartphone_page input[type="tel"],
-#smartphone_page input[type="number"],
-#smartphone_page textarea {
+#smartphone-page input[type="text"],
+#smartphone-page input[type="password"],
+#smartphone-page input[type="email"],
+#smartphone-page input[type="tel"],
+#smartphone-page input[type="number"],
+#smartphone-page textarea {
     -webkit-appearance: none;
 }
 
@@ -290,53 +234,46 @@ input[type="number"] {
     height: 40px;
 }
 
-#recipe_update_form .inner {
+#recipe-update-form .inner {
     margin: 0 5px;
 }
 
-#recipe_update_form .inner .navi {
+#recipe-update-form .inner .navi {
     *zoom: 1;
     padding: 5px 0;
 }
 
-#recipe_update_form .inner .navi .cancel,
-#recipe_update_form .inner .navi .save_and_lenth_check {
+#recipe-update-form .inner .navi .cancel,
+#recipe-update-form .inner .navi .save-and-lenth-check {
     width: 33%;
 }
 
-#recipe_update_form .create {
-    width: 34%;
-    float: left;
-    text-align: center;
-}
-
-#recipe_update_form .inner .navi .save_and_lenth_check {
+#recipe-update-form .inner .navi .save-and-lenth-check {
     text-align: right;
 }
 
-#recipe_update_form .inner .navi .cancel,
-#recipe_update_form .inner .navi .save_and_lenth_check {
+#recipe-update-form .inner .navi .cancel,
+#recipe-update-form .inner .navi .save-and-lenth-check {
     width: 33%;
 }
 
-#recipe_update_form .inner .navi .cancel,
-#recipe_update_form .inner .navi .edit_item_name,
-#recipe_update_form .inner .navi .save_and_lenth_check {
+#recipe-update-form .inner .navi .cancel,
+#recipe-update-form .inner .navi .save-and-lenth-check {
     float: left;
 }
 
-#recipe_update_form .inner .navi:after {
+#recipe-update-form .inner .navi:after {
     content: "";
     display: block;
     clear: both;
 }
 
-.MaterialList {
+.IngredientList {
     padding-left: 20px;
     padding-right: 20px;
 }
 
-.MaterialListItem {
+.IngredientListItem {
     align-items: center;
     border-bottom: 2px dotted #f0efef;
     display: flex;
@@ -344,7 +281,7 @@ input[type="number"] {
     padding: 8px 0;
 }
 
-.MaterialListItemValue {
+.IngredientListItemValue {
     align-items: center;
     color: #151413;
     display: inline-flex;
@@ -376,7 +313,7 @@ input[type="number"] {
     margin: 0 4px 0 0;
 }
 
-.finish_edit {
+.finish-edit {
     position: fixed;
     bottom: 0;
     z-index: 10;
@@ -392,7 +329,44 @@ input[type="number"] {
     *zoom: 1;
 }
 
-.dly-Button {
+
+/* モーダル共通 */
+
+#modal-window {
+    height: 100%;
+    width: 100%;
+    background-color: #fbf9f3;
+    position: absolute;
+    top: 0;
+    /* padding: 2%; */
+    box-sizing: border-box;
+    z-index: 9999;
+}
+
+.edit-header {
+    position: fixed;
+    padding: 5px 0;
+    z-index: 10;
+    box-shadow: #efefef 1px -1px;
+    background: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    *zoom: 1;
+}
+
+.edit-control {
+    width: 30%;
+}
+
+.edit-control {
+    width: 30%;
+}
+
+.edit-Button {
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 1px;
@@ -416,7 +390,7 @@ input[type="number"] {
     margin: 10px;
 }
 
-.dly-Button .dly-Button-body {
+.edit-Button .edit-Button-body {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
@@ -437,4 +411,181 @@ input[type="number"] {
     background-image: linear-gradient(180deg, #ffaa4e 1.28%, #febc56 74.02%);
     border-radius: 100px;
     color: #fff;
+}
+
+.button-left {
+    /* margin: 10px; */
+}
+
+.button-right {
+    /* margin-right: auto; */
+}
+
+.edit-item-name {
+    font-size: large;
+    text-align: center;
+    margin: auto;
+}
+
+.edit-main {
+    padding-top: 70px;
+    padding-right: 2%;
+    padding-left: 2%;
+}
+
+.recipe-update-form {
+    background-color: #ffffff;
+    border-radius: 5px;
+    border: 1px solid #eae8e3;
+    padding: 5px;
+}
+
+.navi {
+    *zoom: 1;
+    padding: 5px 0;
+}
+
+.navi .cancel,
+.navi .save-and-lenth-check {
+    width: 33%;
+}
+
+.navi .cancel {
+    height: 30px;
+    min-height: 30px;
+    line-height: 30px;
+}
+
+.navi .cancel,
+.navi .save-and-lenth-check {
+    float: left;
+}
+
+.navi .edit-button {
+    min-width: 60px;
+    line-height: 1.9;
+}
+
+
+/* モーダル共通 */
+
+.control-area {
+    width: 100%;
+    min-height: 30px;
+    display: inline-block;
+}
+
+.control-area .delete-area {
+    width: 80%;
+    margin-top: 5px;
+    display: inline-block;
+}
+
+.control-area .up-down-area {
+    width: 10%;
+    min-height: 30px;
+    margin-top: 5px;
+    display: inline-block;
+}
+
+.control-area .delete-area .delete {
+    background: linear-gradient(to bottom, #eae8e3, #eae8e3);
+    border: 0;
+    border-radius: 5px;
+    padding: 5px 8px;
+}
+
+.control-area .up-down-area .up-button {
+    background: linear-gradient(to bottom, #eae8e3, #eae8e3);
+    border: 0;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.control-area .up-down-area .down-button {
+    background: linear-gradient(to bottom, #eae8e3, #eae8e3);
+    border: 0;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.add-area {
+    text-align: center;
+}
+
+.add-area .add {
+    background: linear-gradient(to bottom, #eae8e3, #eae8e3);
+    border: 0;
+    border-radius: 5px;
+    padding: 5px 8px;
+}
+
+.description {
+    font-size: 108%;
+    margin-bottom: 15px;
+    word-wrap: break-word;
+}
+
+
+/* キャッチコピー */
+
+.introduction {
+    margin-bottom: 15px;
+    word-wrap: break-word;
+}
+
+
+/* 作り方追加モーダル */
+
+.instructions {
+    width: 100%;
+    height: auto;
+    border-top: 1px solid #eae8e3;
+}
+
+.instructions-container {
+    margin-top: 10px;
+}
+
+
+/* 材料追加モーダル */
+
+.ingredients {
+    width: 100%;
+    height: auto;
+    border-top: 1px solid #eae8e3;
+}
+
+.ingredient-container {
+    width: 100%;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+.name {
+    *zoom: 1;
+    width: 63%;
+    vertical-align: top;
+    padding: 10px 10px 10px 5px;
+    border-bottom: 1px solid #eae8e3;
+    border-top: 1px solid #ffffff;
+    display: inline-block;
+}
+
+.name input {
+    width: 100%;
+}
+
+.quantity {
+    width: 30%;
+    vertical-align: top;
+    padding: 10px 0px 10px 5px;
+    border-bottom: 1px solid #eae8e3;
+    border-top: 1px solid #ffffff;
+    table-layout: fixed;
+    display: inline-block;
+}
+
+.quantity input {
+    width: 100%;
 }

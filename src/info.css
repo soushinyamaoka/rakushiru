@@ -141,37 +141,6 @@ section.ingredients {
     line-height: 25px;
 }
 
-#recipe_update_form table.ingredients .quantity {
-    width: 30%;
-    vertical-align: top;
-    padding: 10px 5px;
-    border-bottom: 1px solid #eae8e3;
-    border-top: 1px solid #ffffff;
-}
-
-#recipe_update_form table.ingredients .name {
-    *zoom: 1;
-    width: 70%;
-    vertical-align: top;
-    padding: 10px 5px;
-    border-bottom: 1px solid #eae8e3;
-    border-top: 1px solid #ffffff;
-}
-
-#recipe_update_form table.ingredients .name .delete_container {
-    min-height: 30px;
-    line-height: 30px;
-    margin-top: 5px;
-    float: left;
-}
-
-#recipe_update_form table.ingredients .name .position_change_container {
-    min-height: 30px;
-    line-height: 30px;
-    margin-top: 5px;
-    float: right;
-}
-
 .button.action,
 a.button.action,
 input[type='submit'].button.action {
@@ -186,7 +155,7 @@ input[type='submit'].button.action {
     margin: 0;
 }
 
-#recipe_update_form table.ingredients .name:after {
+#recipe-update-form table.ingredients .name:after {
     content: "";
     display: block;
     clear: both;
@@ -225,13 +194,13 @@ input[type='submit'].button {
     -webkit-appearance: none;
 }
 
-.change_postion {
+.change-postion {
     width: 38px !important;
 }
 
-.change_postion,
-.edit_button,
-.save_button {
+.change-postion,
+.edit-button,
+.save-button {
     background: #fcfcfa;
     background: -moz-linear-gradient(top, #fcfcfa, #e5e3d8);
     background: -webkit-gradient(linear, left top, left bottom, from(#fcfcfa), to(#e5e3d8));
