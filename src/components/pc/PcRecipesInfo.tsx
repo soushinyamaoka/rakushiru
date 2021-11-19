@@ -82,7 +82,7 @@ class PcRecipesInfo extends React.Component {
   componentDidMount() {
     this.service.requData.reqCode = "";
     this.service.requData.data = this.recipeModel;
-    this.service.send(this.service.requData);
+    this.service.send(this.service.requData, null!);
   }
 
   // render() {

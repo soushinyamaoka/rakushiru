@@ -4,9 +4,15 @@
         "host": "localhost",
         "port": "8080",
         "searchRecipe": "recipeInfo",
-        "saveRecipe": "saveRecipe"
+        "saveRecipe": "saveRecipe",
+        "saveImage": "saveImage"
     },
     "default": {
         "image": "sp_up_image.png"
+    },
+    "keyWord": {
+        "rank1": "ラーメン",
+        "rank2": "つまみ",
+        "rank3": "肉"
     }
 }

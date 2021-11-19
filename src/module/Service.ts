@@ -28,24 +28,53 @@ export default class Service {
     return url
   }
 
-  public async send(req) {
+  public async send(req, file: File) {
     console.log("SEND")
-    console.log(this.getUrl(req.ReqCode))
+    console.log(req)
+    const formData = new FormData();
+    if (file) {
+      formData.append('image', file);
+    }
+    const data = JSON.stringify(req)
+    formData.append("Data", data)
+    const axiosA = axios.post(this.getUrl(req.ReqCode), formData, {
+      headers: {'Content-Type': 'multipart/form-data'},
+    })
+    this.model = await axiosA;
+    console.log("できました")
+    console.log(this.model)
+    return this.model
+  }
+
+  public async openHome(req) {
+    console.log("SEND")
+    console.log(req)
     const axiosA = axios.post(this.getUrl(req.ReqCode), req)
     this.model = await axiosA;
     console.log("できました")
     console.log(this.model)
     return this.model
-    // axios.post(`http://localhost:8080/user-form`, req)
-    // // axios.post(`http://127.0.0.1:63080/user-form`, req)
-    //   .then(res => {
-    //     console.log("返信が来ました")
-    //     console.log(res.data)
-    //     this.model = res.data;
-    //     //this.setState({ persons });
-    //   })
   }
   
+  async handleSubmit(req, files: FileList) {
+    const formData = new FormData();
+    for (var i in files) {
+      formData.append('image', files[i]);
+    }
+    const data = JSON.stringify({
+      Description: 'rorororor',
+    })
+    formData.append('Data', data);
+    console.log("おくります")
+    console.log(formData)
+    const axiosA = axios.post(this.getUrl(req.ReqCode), formData, {
+      headers: {'Content-Type': 'multipart/form-data'},
+    })
+
+    // const postArticleImage = postArticleImageFactory();
+    // const resImageNames = await postArticleImage(formData);
+  }
+
   public requData: { reqCode: string, data: any} = {
     reqCode: "",
     data: null

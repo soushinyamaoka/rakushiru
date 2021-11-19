@@ -27,7 +27,6 @@ export class RecipeModel {
   static QUANTITY = "Quantity"
   static DETAIL = "Detail"
   static ORDER_NO = "OrderNo"
-  static INSTRUCTIONS = "Instructions"
 
   public recipeModel: Recipes = {
     RecipeId: "",
@@ -139,6 +138,38 @@ export class RecipeModel {
       Recipes: [],
       Ingredients: [],
       Instructions: []
+    };
+
+  public getHomeModels1: { Recipes: any[]; } =
+    {
+      Recipes: [{
+        RecipeCode: "1234",
+        title: "ポリポリ食感ラーメン",
+        info: "",
+        serving: 0,
+        imgae: "food_sample.jpg"
+      },
+      {
+        RecipeCode: "88888",
+        title: "ぱりぱりラーメン",
+        info: "",
+        serving: 0,
+        imgae: "food_sample.jpg"
+      },
+      {
+        RecipeCode: "77777",
+        title: "醤油ラーメン",
+        info: "",
+        serving: 0,
+        imgae: "food_sample.jpg"
+      },
+      {
+        RecipeCode: "66666",
+        title: "しおラーメン",
+        info: "",
+        serving: 0,
+        imgae: "food_sample.jpg"
+      }],
     };
 
   public setModel() {

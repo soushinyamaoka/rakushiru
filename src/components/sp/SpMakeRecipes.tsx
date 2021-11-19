@@ -10,6 +10,7 @@ import config from '../../config.json';
 let modelIns: RecipeModel
 let service: Service
 const TITLE = ["", "レシピタイトル", "写真", "キャッチコピー", "材料", "作り方"]
+let file: File = null!
 
 function Init() {
 
@@ -34,8 +35,8 @@ const SpMakeRecipes = () => {
   }
 
   useEffect(() => {
-    if (service.reqParam.Data && service.reqParam.Data.Recipes.RecipeId) {
-      service.send(service.reqParam).then(res => {
+    if (recipeModel.RecipeId.length) {
+      service.send(service.reqParam, null!).then(res => {
         const resData = res.data.Data
         setIngredientModel(resData.Ingredients)
         setRecipeModel(resData.Recipes[0])
@@ -51,14 +52,18 @@ const SpMakeRecipes = () => {
     const files: FileList = e.target.files
     if (files.length > 0) {
 
-      var file = files[0]
+      file = files[0]
       var reader = new FileReader()
       const model_copy = { ...recipeModel }
       reader.onload = (e) => {
+        console.log("e.target!.result")
+        console.log(e.target!.result)
         model_copy.Image = String(e.target!.result)
         setRecipeModel(model_copy)
       };
       reader.readAsDataURL(file)
+      // service.reqParam.ReqCode = 'saveImage'
+      // service.handleSubmit(service.reqParam, files)
 
     }
   }
@@ -70,11 +75,14 @@ const SpMakeRecipes = () => {
 
   const saveRecipe = () => {
     service.reqParam.ReqCode = "saveRecipe";
-    modelIns.models.Recipes[0] = recipeModel;
+    const model_copy = recipeModel
+    model_copy.Image = "image"
+    modelIns.models.Recipes[0] = model_copy;
     modelIns.models.Instructions = instModel;
     modelIns.models.Ingredients = ingredientModel;
     service.reqParam.Data = modelIns.models;
-    service.send(service.reqParam).then(res => {
+    
+    service.send(service.reqParam, file).then(res => {
       alert("保存しました")
     })
   };
@@ -149,12 +157,13 @@ const SpMakeRecipes = () => {
                 </div>
               ) : (
                 <ul className="IngredientList" >
+                  <div className="IngredientListItemValue" >{recipeModel.Serving}  人前</div>
                   {ingredientModel.map((model) =>
                     <li key={model.OrderNo} className="IngredientListItem" onClick={(e) => { ShowModal(Const.RECIPE_INGRE_NO) }}>
                       <div className="IngredientListItemValue">
                         <span className="HowListItemOrder" >{model.OrderNo}</span>
                         {model.Name}
-                        </div>
+                      </div>
                       <div className="IngredientListItemValue" >{model.Quantity}</div>
                     </li>
                   )}

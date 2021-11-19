@@ -29,7 +29,7 @@ const SpRecipesInfo = () => {
   service.reqParam.Data = modelIns.models;
 
   useEffect(() => {
-    service.send(service.reqParam).then(res => {
+    service.send(service.reqParam, null!).then(res => {
       const resData = res.data.Data
       setIngredientModel(resData.Ingredients)
       setRecipeModel(resData.Recipes[0])

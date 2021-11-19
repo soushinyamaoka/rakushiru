@@ -1,39 +1,69 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { RecipeModel, Recipes, Ingredients, Instructions } from '../../module/RecipeModel';
 import { Const } from '../../module/Const';
 import "../../SpMake.css";
 
+let maxIngOrder: number = 0
+let maxInstOrder: number = 0
+
 const SpEditModal = (props) => {
 
-  if (!props.recipeModel.recipeId) {
-    props.ingredientModel[0].OrderNo = 1
-    props.instModel[0].OrderNo = 1
-  }
+  useEffect(() => {
+    maxIngOrder = props.ingredientModel.length;
+    maxInstOrder = props.instModel.length;
+  }, [])
 
-  const [rModel, setRModel] = useState(props.recipeModel);
-  const [mModel, setMModel] = useState(props.ingredientModel);
-  const [iModel, setIModel] = useState(props.instModel);
+  const [recModel, setRecModel] = useState(props.recipeModel);
+  const [ingModel, setIngModel] = useState(props.ingredientModel);
+  const [instModel, setInstModel] = useState(props.instModel);
   const recipeId: string = props.recipeModel.recipeId;
   const editTitle: string = props.editTitle;
 
   const saveData = () => {
-    props.setRecipeModel(rModel);
-    props.setIngredientModel(mModel);
-    props.setInstModel(iModel);
+    for (let i=0; i < ingModel.length; i++) {
+      ingModel[i][RecipeModel.ORDER_NO] = i + 1
+    }
+    for (let i=0; i < instModel.length; i++) {
+      instModel[i][RecipeModel.ORDER_NO] = i + 1
+    }
+    props.setRecipeModel(recModel);
+    props.setIngredientModel(ingModel);
+    props.setInstModel(instModel);
     props.setShowModal(0);
   };
 
   const closeModal = () => {
+    setRecModel(props.recipeModel);
+    setIngModel(props.ingredientModel);
+    setInstModel(props.instModel);
     props.setShowModal(0);
   };
-  const add = (model, setModel) => {
-    const ingredient: Ingredients = {
-      RecipeId: recipeId,
-      OrderNo: model.length + 1,
-      Name: '',
-      Quantity: ''
+  const add = (model, setModel, keyNo) => {
+    console.log(model)
+    if (keyNo === Const.RECIPE_INGRE_NO) {
+      const ingredient: Ingredients = {
+        RecipeId: recipeId,
+        OrderNo: model.length + 1,
+        // OrderNo: maxIngOrder + 1,
+        Name: '',
+        Quantity: ''
+      }
+      maxIngOrder += 1
+      setModel([...model, ingredient])
+    } else {
+      const instructions: Instructions = {
+        RecipeId: '',
+        OrderNo: model.length + 1,
+        // OrderNo: maxInstOrder + 1,
+        Detail: ''
+      }
+      maxInstOrder += 1
+      setModel([...model, instructions])
     }
-    setModel([...model, ingredient])
+    
+    
+    console.log("追加")
+    console.log(model)
   };
 
   const upRow = (n, model, setModel) => {
@@ -53,7 +83,7 @@ const SpEditModal = (props) => {
 
   const delRow = (n, model, setModel) => {
     if (model.length === 1) return
-    const model_copy = model.slice()
+    let model_copy = model.slice()
     model_copy.splice(n, 1)
     setModel(model_copy)
   };
@@ -72,16 +102,19 @@ const SpEditModal = (props) => {
     }
   };
 
+  console.log("再描画")
+  console.log(instModel)
+
   // 材料
-  const IngredientRow = mModel.map((model, index) =>
+  const IngredientRow = ingModel.map((model, index) =>
     <>
-      <div key={String(index)} className="ingredient-container">
+      <div key={String(model[RecipeModel.ORDER_NO])} className="ingredient-container">
         <div className="name">
           <input
             className="text-field sortable-line-name ingredient-name-0 disable-invalid-character"
             placeholder="例）豚肉"
             defaultValue={model[RecipeModel.NAME]}
-            onChange={(e) => changeValue(e, index, mModel, setMModel, RecipeModel.NAME)}
+            onChange={(e) => changeValue(e, index, ingModel, setIngModel, RecipeModel.NAME)}
           >
           </input>
         </div>
@@ -90,43 +123,43 @@ const SpEditModal = (props) => {
             className="text-field sortable-line-quantity ingredient-quantity-0 disable-invalid-character"
             placeholder="例）350g"
             defaultValue={model[RecipeModel.QUANTITY]}
-            onChange={(e) => changeValue(e, index, mModel, setMModel, RecipeModel.QUANTITY)}
+            onChange={(e) => changeValue(e, index, ingModel, setIngModel, RecipeModel.QUANTITY)}
           ></input>
         </div>
       </div>
       <div className="control-area">
         <div className="delete-area">
-          <button className="delete" onClick={() => delRow(index, iModel, setIModel)}>削除</button>
+          <button className="delete" onClick={() => delRow(index, ingModel, setIngModel)}>削除</button>
         </div>
         <div className="up-down-area">
-          <button className="up-button" style={{ display: "inline-block" }} onClick={() => upRow(index, iModel, setIModel)}>↑</button>
+          <button className="up-button" style={{ display: "inline-block" }} onClick={() => upRow(index, ingModel, setIngModel)}>↑</button>
         </div>
         <div className="up-down-area">
-          <button className="down-button" onClick={() => downRow(index, iModel, setIModel)}>↓</button>
+          <button className="down-button" onClick={() => downRow(index, ingModel, setIngModel)}>↓</button>
         </div>
       </div>
     </>
   );
 
   // 作り方
-  const InstRow = iModel.map((model, index) =>
+  const InstRow = instModel.map((model, index) =>
     <>
-      <div key={String(index)} className="instructions-container">
+      <div key={String(model[RecipeModel.ORDER_NO])} className="instructions-container">
         <textarea
           placeholder="作り方を入力してください"
           className="disable-invalid-character"
-          defaultValue={model[RecipeModel.INSTRUCTIONS]}
-          onChange={(e) => changeValue(e, index, iModel, setIModel, RecipeModel.DETAIL)}
+          defaultValue={model[RecipeModel.DETAIL]}
+          onChange={(e) => changeValue(e, index, instModel, setInstModel, RecipeModel.DETAIL)}
         ></textarea>
         <div className="control-area">
           <div className="delete-area">
-            <button className="delete" onClick={() => delRow(index, iModel, setIModel)}>削除</button>
+            <button className="delete" onClick={() => delRow(index, instModel, setInstModel)}>削除</button>
           </div>
           <div className="up-down-area">
-            <button className="up-button" style={{ display: "inline-block" }} onClick={() => upRow(index, iModel, setIModel)}>↑</button>
+            <button className="up-button" style={{ display: "inline-block" }} onClick={() => upRow(index, instModel, setInstModel)}>↑</button>
           </div>
           <div className="up-down-area">
-            <button className="down-button" onClick={() => downRow(index, iModel, setIModel)}>↓</button>
+            <button className="down-button" onClick={() => downRow(index, instModel, setInstModel)}>↓</button>
           </div>
         </div>
       </div>
@@ -165,7 +198,7 @@ const SpEditModal = (props) => {
                   type="text"
                   placeholder="タイトルを入れる"
                   maxLength={20}
-                  onChange={(e) => changeValue(e, 0, rModel, setRModel, RecipeModel.TITLE)}
+                  onChange={(e) => changeValue(e, 0, recModel, setRecModel, RecipeModel.TITLE)}
                 ></input>
                 // キャッチコピーを入力
               ) : (props.showModal === Const.RECIPE_INTRO_NO) ? (
@@ -173,12 +206,18 @@ const SpEditModal = (props) => {
                   placeholder="キャッチコピーを入力してください"
                   className="disable-invalid-character"
                   maxLength={60}
-                  onChange={(e) => changeValue(e, 0, rModel, setRModel, RecipeModel.INTRODUCTION)}
+                  onChange={(e) => changeValue(e, 0, recModel, setRecModel, RecipeModel.INTRODUCTION)}
                 ></textarea>
                 // 材料を入力
               ) : (props.showModal === Const.RECIPE_INGRE_NO) ? (
                 <>
                   <div className="ingredients">
+                    <input
+                      type="text"
+                      placeholder="何人前"
+                      maxLength={20}
+                      onChange={(e) => changeValue(e, 0, recModel, setRecModel, RecipeModel.SERVING)}
+                    ></input>
                     {IngredientRow}
                   </div>
                   <div className="inner">
@@ -186,7 +225,7 @@ const SpEditModal = (props) => {
                       <div className="add-area">
                         <button
                           className="add"
-                          onClick={() => add(mModel, setMModel)}
+                          onClick={() => add(ingModel, setIngModel, Const.RECIPE_INGRE_NO)}
                         >材料を追加</button>
                       </div>
                     </div>
@@ -203,7 +242,7 @@ const SpEditModal = (props) => {
                       <div className="add-area">
                         <button
                           className="add"
-                          onClick={() => add(iModel, setIModel)}
+                          onClick={() => add(instModel, setInstModel, Const.RECIPE_INST_NO)}
                         >材料を追加</button>
                       </div>
                     </div>

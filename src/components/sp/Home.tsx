@@ -1,10 +1,41 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
+import { useLocation } from "react-router-dom";
 import SpHeader from './SpHeader';
+import { RecipeModel } from '../../module/RecipeModel';
+import Service from '../../module/Service';
 import { Link } from "react-router-dom";
 import "../../SpHome.css";
 
+let modelIns: RecipeModel
+let service: Service
+
+function init() {
+
+  modelIns = new RecipeModel().getInstance();
+  service = new Service();
+}
+
 const Home = () => {
   const recipeId = "12345"
+
+  // init();
+
+  // const [recipeModel, setRecipeModel] = useState(modelIns.recipeModel);
+
+  // const location: any = useLocation();
+  // recipeModel.RecipeId = location.state.recipeId;
+  // modelIns.models.Recipes[0] = recipeModel
+  // service.reqParam.ReqCode = "searchRecipe";
+  // service.reqParam.Data = modelIns.models;
+
+  // useEffect(() => {
+  //   service.send(service.reqParam, null!).then(res => {
+  //     const resData = res.data.Data
+  //     setRecipeModel(resData.Recipes[0])
+      
+  //   })
+  // }, [])
+
   return (
     <>
       <SpHeader />
@@ -28,7 +59,7 @@ const Home = () => {
                 <div className="SpRoot-attentionLinkWrapper" >
                 </div>
                 <div className="SpRoot-globalNav" >
-                  <a href="/categories" className="DlyLink SpRoot-globalNavItem" > カテゴリ一覧 </a>
+                  <a href="/categories" className="DlyLink SpRoot-globalNavItem" > カテゴリをみる </a>
                   <Link className="SpRoot-globalNavItem" to="/MakeRecipes">レシピをつくる</Link>
                   <a href="/articles" className="DlyLink SpRoot-globalNavItem" > レシピをよむ </a>
                 </div>
@@ -116,7 +147,7 @@ const Home = () => {
                             </div>  </div>
                         </div>
                       </li>
-                      <li className="SpRoot-popularRecipe" >
+                      {/* <li className="SpRoot-popularRecipe" >
                         <div className="dly-video-item-root mobile small"  >
                           <a href="/recipes/86978a96-d5ad-49f1-a214-0a90a2934920" className="DlyLink thumbnail-wrapper dly-video-item-thumbnail-root responsive small" style={{ borderRadius: 8 }}  >
                             <div className="DlyImg-root video-list-img"  >
@@ -255,7 +286,7 @@ const Home = () => {
                               </p>
                             </div>  </div>
                         </div>
-                      </li>
+                      </li> */}
                     </ul>
                   </div>
 
