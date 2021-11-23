@@ -18,6 +18,7 @@ export class RecipeModel {
   }
 
   private instance: RecipeModel
+  static RECIPE_ID = "RecipeId"
   static TITLE = "Title"
   static INTRODUCTION = "Introduction"
   static SERVING = "Serving"
@@ -140,7 +141,7 @@ export class RecipeModel {
       Instructions: []
     };
 
-  public getHomeModels1: { Recipes: any[]; } =
+  public getHomeModels: { Recipes: any[]; } =
     {
       Recipes: [{
         RecipeCode: "1234",
