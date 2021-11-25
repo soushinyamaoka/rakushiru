@@ -566,12 +566,18 @@ h5 {
     padding-left: 6px;
 }
 
+.SpRoot-popularRecipeRecipes::-webkit-scrollbar {
+    /* Chrome, Safari 対応 */
+    display: none;
+}
+
 .SpRoot-popularRecipe {
     -webkit-box-flex: 0;
     -ms-flex: 0 0 auto;
     flex: 0 0 auto;
     padding: 0 6px;
     width: 40%;
+    list-style: none;
 }
 
 .dly-video-item-root {

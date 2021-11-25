@@ -23,14 +23,22 @@ const SpRecipesInfo = () => {
   const [instModel, setInstModel] = useState(modelIns.instModel);
 
   const location: any = useLocation();
-  recipeModel.RecipeId = location.state.recipeId;
-  modelIns.models.Recipes[0] = recipeModel
-  service.reqParam.ReqCode = "searchRecipe";
-  service.reqParam.Data = modelIns.models;
+  if (location.state) {
+    console.log("location.state")
+    console.log(location.state)
+    console.log(recipeModel)
+    recipeModel.RecipeId = location.state.recipeId;
+    modelIns.models.Recipes[0] = recipeModel
+    service.reqParam.ReqCode = "searchRecipe";
+    service.reqParam.Data = modelIns.models;
+  }
+
 
   useEffect(() => {
-    service.send(service.reqParam, null!).then(res => {
+    service.selectRecipe(service.reqParam).then(res => {
       const resData = res.data.Data
+      console.log("resData")
+      console.log(resData)
       setIngredientModel(resData.Ingredients)
       setRecipeModel(resData.Recipes[0])
       setInstModel(resData.Instructions)
@@ -65,7 +73,7 @@ const SpRecipesInfo = () => {
                           <div className="DlyW2aNutrientSlideUpModal-contentWrap">
                             <div className="DlyW2aNutrientSlideUpModal-nutrientWrap">
                               <div className="image-wrapper">
-                                <img src={`${process.env.PUBLIC_URL}` + "image/" + recipeModel.Image} className="resizeimage"></img>
+                                <img src={service.getImagePath(recipeModel[RecipeModel.IMAGE])} className="resizeimage"></img>
                               </div>
                             </div>
                           </div>
@@ -101,16 +109,6 @@ const SpRecipesInfo = () => {
                           </li>
                         )}
                       </ul>
-                    </div>
-                    <div className="MainContentWta-memo" >
-                      <h2 className="MainContentWta-sectionTitle MainContentWta-sectionTitle--memo" >
-                        コツ・ポイント
-                      </h2>
-                      <div className="MainContentWta-memoContent" >
-                        とにかく、あまりに手早くできて、美味しいので、オススメです！
-                        必須はキュウリ、塩昆布、ゴマ油なので、他に、たとえば、シソ、ワカメ、梅肉などを加えてもいいです。
-                        お家にある材料で、足したり引いたりしてみてください。
-                      </div>
                     </div>
                   </div>
                 </main>

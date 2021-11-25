@@ -5,7 +5,9 @@
         "port": "8080",
         "searchRecipe": "recipeInfo",
         "saveRecipe": "saveRecipe",
-        "saveImage": "saveImage"
+        "saveImage": "saveImage",
+        "openHome": "openHome",
+        "openImage": "image"
     },
     "default": {
         "image": "sp_up_image.png"
