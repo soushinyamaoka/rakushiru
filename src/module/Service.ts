@@ -1,6 +1,7 @@
 import axios from 'axios';
 import config from '../config.json';
-import { RecipeModel, KeyWord } from '../module/RecipeModel';
+import { RecipeModel, KeyWord, Recipes, Ingredients, Instructions } from './RecipeModel';
+import { Const } from './Const';
 
 export default class Service {
   private model: any = null
@@ -8,7 +9,7 @@ export default class Service {
   static REQ_SAVE_RECIPE: string = "saveRecipe"
 
   public getUrl(key: string): string {
-    const url: string = config.serveInfo.protocol +
+    let url: string = config.serveInfo.protocol +
       config.serveInfo.host +
       ":" +
       config.serveInfo.port +
@@ -27,6 +28,11 @@ export default class Service {
       "/" +
       name
     return url
+  }
+
+  public getRank1(): string {
+    
+    return config.keyWord.rank1
   }
 
   public getKeyWord(): KeyWord[] {
@@ -72,25 +78,6 @@ export default class Service {
     return this.model
   }
 
-  async handleSubmit(req, files: FileList) {
-    const formData = new FormData();
-    for (var i in files) {
-      formData.append('image', files[i]);
-    }
-    const data = JSON.stringify({
-      Description: 'rorororor',
-    })
-    formData.append('Data', data);
-    console.log("おくります")
-    console.log(formData)
-    const axiosA = axios.post(this.getUrl(req.ReqCode), formData, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    })
-
-    // const postArticleImage = postArticleImageFactory();
-    // const resImageNames = await postArticleImage(formData);
-  }
-
   public requData: { reqCode: string, data: any } = {
     reqCode: "",
     data: null
@@ -109,4 +96,64 @@ export default class Service {
   public getData() {
     return this.model
   }
+
+  // TODO：要共通化-------
+  public add (model, setModel, keyNo, recipeId) {
+    console.log(model)
+    if (keyNo === Const.RECIPE_INGRE_NO) {
+      const ingredient: Ingredients = {
+        RecipeId: recipeId,
+        OrderNo: model.length + 1,
+        // OrderNo: maxIngOrder + 1,
+        Name: '',
+        Quantity: ''
+      }
+      setModel([...model, ingredient])
+    } else {
+      const instructions: Instructions = {
+        RecipeId: recipeId,
+        OrderNo: model.length + 1,
+        // OrderNo: maxInstOrder + 1,
+        Detail: ''
+      }
+      setModel([...model, instructions])
+    }
+  };
+
+  public upRow(n, model, setModel) {
+    if (n - 1 < 0) return
+    const model_copy = model.slice()
+    model_copy.splice(n - 1, 2, model_copy[n], model_copy[n - 1])
+    setModel(model_copy)
+
+  };
+
+  public downRow(n, model, setModel){
+    if (n + 2 > model.length) return
+    const model_copy = model.slice()
+    model_copy.splice(n, 2, model_copy[n + 1], model_copy[n])
+    setModel(model_copy)
+  };
+
+  public delRow(n, model, setModel){
+    if (model.length === 1) return
+    let model_copy = model.slice()
+    model_copy.splice(n, 1)
+    setModel(model_copy)
+  };
+
+  public changeValue(e: React.ChangeEvent<any>,
+    index: number, model: any, setModel: any, key: string){
+    const value = e.target.value;
+    if (model.length) {
+      const model_copy = model.slice()
+      model_copy[index][key] = value
+      setModel(model_copy)
+    } else {
+      const model_copy = model
+      model_copy[key] = value
+      setModel(model_copy)
+    }
+  };
+  // ------------------
 }

@@ -348,3 +348,11 @@
 .image-wrapper {
     text-align: center;
 }
+
+
+/* コントロール */
+
+.info-control-area {
+    width: 30%;
+    margin: auto;
+}

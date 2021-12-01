@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "../../SpHome.css";
+import "../../../SpHome.css";
 
 const SpHeaderTemp = () => {
   return (

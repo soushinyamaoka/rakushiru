@@ -643,6 +643,7 @@ section {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+    padding-left: 0;
 }
 
 .PcRoot-popularRecipeWord {
@@ -656,6 +657,7 @@ section {
     margin-right: 16px;
     position: relative;
     width: 216px;
+    list-style: none;
 }
 
 .dly-video-item-root:not(.mobile).small {

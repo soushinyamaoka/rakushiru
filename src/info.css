@@ -224,3 +224,24 @@ input[type='submit'].button {
     width: auto !important;
     padding: 0 5px;
 }
+
+.recipesInfo-title {
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: .15px;
+    line-height: 130%;
+    color: #151413;
+}
+
+.PcRoot-popularRecipeMore {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    color: #93918f;
+    cursor: pointer;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    font-size: 14px;
+    font-weight: 600;
+}

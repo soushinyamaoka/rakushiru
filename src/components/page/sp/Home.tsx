@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from "react-router-dom";
 import SpHeader from './SpHeader';
-import { RecipeModel } from '../../module/RecipeModel';
-import Service from '../../module/Service';
+import { RecipeModel } from '../../../module/RecipeModel';
+import Service from '../../../module/Service';
 import { Link } from "react-router-dom";
-import "../../SpHome.css";
+import "../../../SpHome.css";
 
 let modelIns: RecipeModel
 let service: Service
@@ -17,15 +17,10 @@ function init() {
 }
 
 const Home = () => {
-  const recipeId = "12345"
 
   init();
 
   const [homeModel, setHomeModel] = useState(modelIns.homeModel);
-
-  // const location: any = useLocation();
-  // recipeModel.RecipeId = location.state.recipeId;
-  // modelIns.models.Recipes[0] = recipeModel
 
   useEffect(() => {
     service.reqParam.ReqCode = "openHome";
@@ -37,8 +32,6 @@ const Home = () => {
 
     })
   }, [])
-  // let homeModel = modelIns.getHomeModels.Recipes
-  console.log(homeModel)
 
   return (
     <>
@@ -66,55 +59,15 @@ const Home = () => {
                     </div>
                     <div className="SpRoot-globalNav" >
                       <a href="/categories" className="DlyLink SpRoot-globalNavItem" > カテゴリをみる </a>
-                      <Link className="SpRoot-globalNavItem" to="/MakeRecipes">レシピをつくる</Link>
+                      <Link className="SpRoot-globalNavItem" to="/MakeRecipes/ ">レシピをつくる</Link>
                       <a href="/articles" className="DlyLink SpRoot-globalNavItem" > レシピをよむ </a>
-                    </div>
-                    <div className="SpRoot-categories" >
-                      <div className="SpRoot-categoryTabs" >
-                        <div className="SpRoot-categoryTabItem SpRoot-categoryTabItem--active" >
-                          メニューから探す
-                        </div>
-                        <div className="SpRoot-categoryTabItem" >
-                          簡単さで探す
-                        </div>
-                      </div>
-                      <div className="SpRoot-categoryList" >
-                        <a href="/video_categories/140" className="DlyLink SpRoot-categoryListItem SpRoot-categoryListItem--forIngredient">
-                          <span className="SpRoot-categoryListItemContent">
-                            野菜
-                          </span>
-                        </a>
-                        <a href="/video_categories/199" className="DlyLink SpRoot-categoryListItem SpRoot-categoryListItem--forIngredient">
-                          <span className="SpRoot-categoryListItemContent">
-                            肉
-                          </span>
-                        </a>
-                        <a href="/video_categories/219" className="DlyLink SpRoot-categoryListItem SpRoot-categoryListItem--forIngredient">
-                          <span className="SpRoot-categoryListItemContent">
-                            大豆・豆腐
-                          </span>
-                        </a>
-                        <a href="/video_categories/244" className="DlyLink SpRoot-categoryListItem SpRoot-categoryListItem--forIngredient">
-                          <span className="SpRoot-categoryListItemContent">
-                            チーズ
-                          </span>
-                        </a>
-                        <a href="/video_categories/226" className="DlyLink SpRoot-categoryListItem SpRoot-categoryListItem--forIngredient">
-                          <span className="SpRoot-categoryListItemContent">
-                            魚
-                          </span>
-                        </a>
-                        <a href="/categories" className="DlyLink SpRoot-categoryListItem SpRoot-categoryListItem--all SpRoot-categoryListItem--forIngredient" >
-                          すべて
-                        </a>
-                      </div>
                     </div>
                     <div className="SpRoot-popularRecipesTitle" >人気キーワードのレシピ</div>
                     <div className="SpRoot-popularRecipes" >
                       <div className="SpRoot-popularRecipeItem" >
                         <div className="SpRoot-popularRecipeSectionTitle" >
                           <div className="SpRoot-popularRecipeWord" >
-                            きゅうり
+                            {service.getRank1()}
                           </div>
                           <div className="SpRoot-popularRecipeMore" >
                             すべて見る
@@ -122,7 +75,7 @@ const Home = () => {
                         </div>
                         <ul className="SpRoot-popularRecipeRecipes" >
                           {homeModel.map((model) => (
-                            <li className="SpRoot-popularRecipe" >
+                            <li key={model[RecipeModel.RECIPE_ID]} className="SpRoot-popularRecipe" >
                               <div className="dly-video-item-root mobile small"  >
                                 <a href="/recipes/b624170e-41fc-4f15-b1ec-5e3b26f6bb5c" className="DlyLink thumbnail-wrapper dly-video-item-thumbnail-root responsive small" style={{ borderRadius: 8 }}  >
                                   <div className="DlyImg-root video-list-img"  >
@@ -134,8 +87,7 @@ const Home = () => {
                                     <p className="dly-video-item-title-root mobile small"  >
                                       <Link
                                         to={{
-                                          pathname: "/RecipesInfo",
-                                          state: { recipeId: model[RecipeModel.RECIPE_ID] }
+                                          pathname: "/RecipesInfo/" + model[RecipeModel.RECIPE_ID]
                                         }}
                                       >{model[RecipeModel.TITLE]}
                                       </Link>

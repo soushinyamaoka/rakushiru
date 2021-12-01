@@ -1,12 +1,10 @@
 import React, { Component } from "react";
-import "./App.css";
-import PcHome from './components/pc/Home';
-import SpHome from './components/sp/Home';
-import SpRecipesInfo from './components/sp/SpRecipesInfo';
-import PcMakeRecipes from './components/pc/PcMakeRecipes';
-import SpMakeRecipes from './components/sp/SpMakeRecipes';
-import PcRecipesInfo from './components/pc/PcRecipesInfo';
-import test from './components/pc/test';
+import PcHome from './components/page/pc/Home';
+import SpHome from './components/page/sp/Home';
+import SpRecipesInfo from './components/page/sp/SpRecipesInfo';
+import PcMakeRecipes from './components/page/pc/PcMakeRecipes';
+import SpMakeRecipes from './components/page/sp/SpMakeRecipes';
+import PcRecipesInfo from './components/page/pc/PcRecipesInfo';
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 
 interface Props {}
@@ -25,9 +23,8 @@ class App extends Component<Props, State> {
       <BrowserRouter>
       <Switch>
         <Route path="/" exact component={this.getHome()} />
-        <Route path="/MakeRecipes" exact component={this.getMakeRecipes()} />
-        <Route path="/RecipesInfo" exact component={this.getHowToMake()} />
-        <Route path="/test" exact component={test} />
+        <Route path="/MakeRecipes/:id" exact component={this.getMakeRecipes()} />
+        <Route path="/RecipesInfo/:id" exact component={this.getHowToMake()} />
         <Redirect to="/" />
       </Switch>
     </BrowserRouter>

@@ -244,6 +244,7 @@ form {
 /* search-box-wrapperから */
 
 .make-recipe-inputarea {
+    margin-top: 10px;
     padding-bottom: 10px;
 }
 
@@ -274,22 +275,159 @@ form {
 }
 
 
-/* .input-recipe-title {
-    align-items: center;
-    display: flex;
-    flex: 1 1 auto;
-    flex-flow: row nowrap;
-    margin-right: 16px;
-    background-color: #eee;
-    border: 1px solid #d5d2cd;
+/* モーダル共通 */
+
+.control-area {
+    width: 100%;
+    min-height: 30px;
+    display: inline-block;
 }
 
-.recipe-title-box {
-    align-items: center;
-    display: flex;
-    flex: 1 1 auto;
-    flex-flow: row nowrap;
-    margin-right: 16px;
-    background-color: #eee;
-    border: 1px solid #d5d2cd;
-} */
+.control-area .delete-area {
+    width: 80%;
+    margin-top: 5px;
+    display: inline-block;
+}
+
+.control-area .up-down-area {
+    width: 10%;
+    min-height: 30px;
+    margin-top: 5px;
+    display: inline-block;
+}
+
+.control-area .delete-area .delete {
+    background: linear-gradient(to bottom, #eae8e3, #eae8e3);
+    border: 0;
+    border-radius: 5px;
+    padding: 5px 8px;
+}
+
+.control-area .up-down-area .up-button {
+    background: linear-gradient(to bottom, #eae8e3, #eae8e3);
+    border: 0;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.control-area .up-down-area .down-button {
+    background: linear-gradient(to bottom, #eae8e3, #eae8e3);
+    border: 0;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.pc-add-area {
+    display: inline-block;
+    padding-left: 10px;
+}
+
+.pc-add-area .add {
+    background: linear-gradient(to bottom, #eae8e3, #eae8e3);
+    border: 0;
+    border-radius: 5px;
+    padding: 5px 8px;
+}
+
+.description {
+    font-size: 108%;
+    margin-bottom: 15px;
+    word-wrap: break-word;
+}
+
+
+/* キャッチコピー */
+
+.introduction {
+    margin-bottom: 15px;
+    word-wrap: break-word;
+}
+
+
+/* 作り方追加モーダル */
+
+.pc-instructions {
+    width: 100%;
+    height: auto;
+    margin-top: 50px;
+}
+
+.instructions-container {
+    margin-top: 10px;
+    border-top: 1px solid #eae8e3;
+    padding-top: 5px;
+}
+
+
+/* 材料追加モーダル */
+
+.ingredients {
+    width: 100%;
+    height: auto;
+    border-top: 1px solid #eae8e3;
+}
+
+.ingredient-container {
+    width: 100%;
+    margin-top: 10px;
+    display: inline-block;
+    border-top: 1px solid #eae8e3;
+}
+
+.name {
+    *zoom: 1;
+    width: 63%;
+    vertical-align: top;
+    padding: 10px 10px 10px 5px;
+    /* border-bottom: 1px solid #eae8e3;
+    border-top: 1px solid #ffffff; */
+    display: inline-block;
+}
+
+.name input {
+    width: 100%;
+}
+
+.quantity {
+    width: 30%;
+    vertical-align: top;
+    padding: 10px 0px 10px 5px;
+    /* border-bottom: 1px solid #eae8e3;
+    border-top: 1px solid #ffffff; */
+    table-layout: fixed;
+    display: inline-block;
+}
+
+.quantity input {
+    width: 100%;
+}
+
+.pc-edit-control {
+    margin-top: 40px;
+    justify-content: center;
+    padding: 0px 100px;
+}
+
+.edit-Button {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    line-height: 130%;
+    height: 35px;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(1.28%, #ffaa4e), color-stop(74.02%, #febc56));
+    background-image: linear-gradient(180deg, #ffaa4e 1.28%, #febc56 74.02%);
+    border-radius: 10px;
+    color: #fff;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: block;
+    outline: none;
+    padding: 10px;
+    position: relative;
+    text-decoration: none;
+    margin: 10px;
+}

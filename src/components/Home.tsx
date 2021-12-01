@@ -1,6 +1,6 @@
 import React from "react";
-import PcHome from './pc/Home';
-import SpHome from './sp/Home';
+import PcHome from './page/pc/Home';
+import SpHome from './page/sp/Home';
 
 import "../App.css";
 
