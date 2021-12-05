@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { RecipeModel, Recipes, Ingredients, Instructions } from '../../../module/RecipeModel';
+import ReactDOM from "react-dom";
+import "../../../SpMake.css";
+import { RecipeModel } from '../../../module/RecipeModel';
 import { Const } from '../../../module/Const';
-import Service from '../../../module/Service';
+import TitleInput from '../../ui/TitleInput';
+import IntroTextarea from '../../ui/IntroTextarea';
 import NameInput from '../../ui/NameInput';
 import QuantityInput from '../../ui/QuantityInput';
 import DetailTextarea from '../../ui/DetailTextarea';
@@ -11,27 +14,18 @@ import AddButton from '../../ui/AddButton';
 import DownButton from '../../ui/DownButton';
 import ServingInput from '../../ui/ServingInput';
 
-import ReactDOM from "react-dom";
-import "../../../SpMake.css";
-
-let service: Service = new Service()
 const SpEditModal = (props) => {
 
   const [model, setModel] = useState(props.model);
   const [rModel, setRModel] = useState(props.rModel);
   const recipeId: string = props.recipeId;
-  // let len: number = 0
-  // if (props.model.length) {
-
-  // }
   const refs: any = useRef(Array.from({ length: props.model.length }, a => React.createRef()));
-  console.log("model")
-  console.log(model)
-
   const rootEl = document.getElementById('root')!;
   const editTitle: string = props.editTitle;
 
+  // 保存押下
   const saveData = () => {
+    document.body.style.overflowY = "";
     for (let i = 0; i < model.length; i++) {
       model[i][RecipeModel.ORDER_NO] = i + 1
     }
@@ -40,6 +34,7 @@ const SpEditModal = (props) => {
   };
 
   const closeModal = () => {
+    // 親画面のスクロールを使用可に戻す
     document.body.style.overflowY = "";
     props.setModel(props.model);
     if (props.showModal === Const.RECIPE_INGRE_NO) {
@@ -47,15 +42,12 @@ const SpEditModal = (props) => {
     }
     props.setShowModal(0);
   };
-
   useEffect(() => {
+    // 親画面のスクロールをロック
     document.body.style.overflowY = "hidden";
     const node: any = refs.current;
-    console.log("node")
-    console.log(node)
-    console.log(node[0])
     if (node && node[0] && node[0].current) {
-
+      // 先頭の入力エリアにフォーカス
       node[0].current.focus();
     }
   }, [])
@@ -63,8 +55,9 @@ const SpEditModal = (props) => {
   return (ReactDOM.createPortal(
     <>
       {(props.showModal !== 0) ? (
-        <div id="modal-window" >
-          <div className="edit-header">
+        // 画面表示領域中央にモーダル表示させる
+        <div id="modal-window" style={{top:window.pageYOffset}}>
+          <div className="edit-header" style={{top:0}}>
             <div className="edit-control">
               <button className="edit-Button edit-Button--contained ">
                 <div className="edit-Button-body edit-Button-body--contained"
@@ -88,22 +81,19 @@ const SpEditModal = (props) => {
 
               {/* タイトルを入力 */}
               {(props.showModal === Const.RECIPE_TITLE_NO) ? (
-                <input
-                  type="text"
-                  placeholder={Const.PH_TITLE}
-                  defaultValue={model[RecipeModel.TITLE]}
-                  maxLength={20}
-                  onChange={(e) => service.changeValue(e, 0, model, setModel, RecipeModel.TITLE)}
-                ></input>
+                <TitleInput
+                  className=""
+                  model={model}
+                  setModel={setRModel}
+                ></TitleInput>
                 // キャッチコピーを入力
               ) : (props.showModal === Const.RECIPE_INTRO_NO) ? (
-                <textarea
-                  placeholder={Const.PH_INTRODUCTION}
+
+                <IntroTextarea
                   className="disable-invalid-character"
-                  defaultValue={model[RecipeModel.DETAIL]}
-                  maxLength={60}
-                  onChange={(e) => service.changeValue(e, 0, model, setModel, RecipeModel.INTRODUCTION)}
-                ></textarea>
+                  model={model}
+                  setModel={setRModel}
+                ></IntroTextarea>
                 // 材料を入力
               ) : (props.showModal === Const.RECIPE_INGRE_NO) ? (
                 <>
@@ -113,19 +103,23 @@ const SpEditModal = (props) => {
                       model={rModel}
                       setModel={setRModel}
                     ></ServingInput>
-                    {React.Children.toArray(model.map((model, index) =>
+                    {React.Children.toArray(model.map((ingModel, index) =>
                       <>
                         <div key={String(model[RecipeModel.ORDER_NO])} className="ingredient-container">
                           <div className="name">
                             <NameInput
-                              model={model}
+                              className="text-field sortable-line-name ingredient-name-0 disable-invalid-character"
+                              model={ingModel}
+                              modelList={model}
                               setModel={setModel}
                               index={index}
                             ></NameInput>
                           </div>
                           <div className="quantity">
                             <QuantityInput
-                              model={model}
+                              className="text-field sortable-line-quantity ingredient-quantity-0 disable-invalid-character"
+                              model={ingModel}
+                              modelList={model}
                               setModel={setModel}
                               index={index}
                             ></QuantityInput>
@@ -134,21 +128,24 @@ const SpEditModal = (props) => {
                         <div className="control-area">
                           <div className="delete-area">
                             <DeleteButton
-                              model={model}
+                              model={ingModel}
+                              modelList={model}
                               setModel={setModel}
                               index={index}
                             ></DeleteButton>
                           </div>
                           <div className="up-down-area">
                             <UpButton
-                              model={model}
+                              model={ingModel}
+                              modelList={model}
                               setModel={setModel}
                               index={index}
                             ></UpButton>
                           </div>
                           <div className="up-down-area">
                             <DownButton
-                              model={model}
+                              model={ingModel}
+                              modelList={model}
                               setModel={setModel}
                               index={index}
                             ></DownButton>
@@ -156,7 +153,6 @@ const SpEditModal = (props) => {
                         </div>
                       </>
                     ))}
-
                   </div>
                   <div className="inner">
                     <div className="navi">
@@ -174,33 +170,38 @@ const SpEditModal = (props) => {
               ) : (props.showModal === Const.RECIPE_INST_NO) ? (
                 <>
                   <div className="instructions">
-                    {React.Children.toArray(model.map((model, index) =>
+                    {React.Children.toArray(model.map((instModel, index) =>
                       <>
                         <div key={String(model[RecipeModel.ORDER_NO])} className="instructions-container">
                           <DetailTextarea
                             el={refs.current[index]}
-                            model={model}
+                            className="disable-invalid-character"
+                            model={instModel}
+                            modelList={model}
                             setModel={setModel}
                             index={index}
                           ></DetailTextarea>
                           <div className="control-area">
                             <div className="delete-area">
                               <DeleteButton
-                                model={model}
+                                model={instModel}
+                                modelList={model}
                                 setModel={setModel}
                                 index={index}
                               ></DeleteButton>
                             </div>
                             <div className="up-down-area">
                               <UpButton
-                                model={model}
+                                model={instModel}
+                                modelList={model}
                                 setModel={setModel}
                                 index={index}
                               ></UpButton>
                             </div>
                             <div className="up-down-area">
                               <DownButton
-                                model={model}
+                                model={instModel}
+                                modelList={model}
                                 setModel={setModel}
                                 index={index}
                               ></DownButton>

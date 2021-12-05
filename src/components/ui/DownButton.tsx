@@ -7,7 +7,7 @@ const DownButton = (props) => {
     <>
       <button
         className="down-button"
-        onClick={() => service.downRow(props.index, props.model, props.setModel)}
+        onClick={() => service.downRow(props.index, props.modelList, props.setModel)}
       >↓</button>
     </>
   );

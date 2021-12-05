@@ -1,8 +1,6 @@
 import React from "react";
-import PcHome from './page/pc/Home';
+import PcHome from './page/pc/PcHome';
 import SpHome from './page/sp/Home';
-
-import "../App.css";
 
 const Home = () => {
   return (

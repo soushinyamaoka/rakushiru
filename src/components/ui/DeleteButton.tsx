@@ -7,7 +7,7 @@ const DeleteButton = (props) => {
     <>
       <button
         className="delete"
-        onClick={() => service.delRow(props.index, props.model, props.setModel)}
+        onClick={() => service.delRow(props.index, props.modelList, props.setModel)}
       >削除</button>
     </>
   );

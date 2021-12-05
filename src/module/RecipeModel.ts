@@ -2,6 +2,7 @@ export interface Recipes { RecipeId: string; Title: string; Introduction: string
 export interface Ingredients { RecipeId: string; OrderNo: number; Name: string; Quantity: string }
 export interface Instructions { RecipeId: string; OrderNo: number; Detail: string; }
 export interface KeyWord { Word: string; }
+export interface RankModels { Rank1: Recipes[]; Rank2: Recipes[]; Rank3: Recipes[]; }
 
 export class RecipeModel {
   [x: string]: {};
@@ -38,7 +39,7 @@ export class RecipeModel {
     Image: ""
   };
 
-  public homeModel: Recipes[] = [
+  public recipeList: Recipes[] = [
     {
       RecipeId: "",
       Title: "",
@@ -47,6 +48,13 @@ export class RecipeModel {
       Image: ""
     }
   ];
+  public rankModel: RankModels = {
+    Rank1: [],
+    Rank2: [],
+    Rank3: []
+  };
+
+
 
   public keyWordModel: KeyWord[] = [
     {

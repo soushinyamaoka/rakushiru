@@ -337,7 +337,7 @@ input[type="number"] {
     width: 100%;
     background-color: #fbf9f3;
     position: absolute;
-    top: 0;
+    /* top: 0; */
     /* padding: 2%; */
     box-sizing: border-box;
     z-index: 9999;

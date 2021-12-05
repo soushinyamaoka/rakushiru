@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { RecipeModel } from '../../../module/RecipeModel';
 import Service from '../../../module/Service';
 const Recip = (props) => {
-  console.log(props)
   return (
     <div>
       <li className="PcRoot-popularRecipe" >

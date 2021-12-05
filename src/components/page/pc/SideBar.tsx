@@ -1,4 +1,6 @@
 import React from "react";
+import AllShowLink from '../../ui/AllShowLink';
+import KeyWordLink from '../../ui/KeyWordLink';
 
 const SideBar = () => {
   return (
@@ -8,7 +10,7 @@ const SideBar = () => {
           <script data-ad-client="ca-pub-4026294411988033" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         </div>
       </div>
-      <a href="https://chirashiru.kurashiru.com/" target="_blank" rel="noopener" className="PcAside-bannerLink PcAside-bannerLink--kurashiruChirashi" >
+      {/* <a href="https://chirashiru.kurashiru.com/" target="_blank" rel="noopener" className="PcAside-bannerLink PcAside-bannerLink--kurashiruChirashi" >
         <div className="DlyImg-root PcAside-kurashiruChirashiLinkImage" >
           <img src="//assets.kurashiru.com/production/assets/kurashiru_chirashi_banner-b96fbfddf1aec3c24e0abc3cb335e67bca04f7fb94d0f11d52e7599adfd53d0d.jpg" dly-img-state="loaded" className="DlyImg-img" ></img>
           <div className="DlyImg-placeholder" style={{ paddingBottom: "21.282798833819243%" }} >
@@ -17,42 +19,21 @@ const SideBar = () => {
             </noscript>
           </div>
         </div>
-      </a>
+      </a> */}
       <div className="PcAside-keywords" >
         <h2 className="PcAside-sectionTitle" >
           定番のキーワード
         </h2>
         <div className="PcAside-keywordList" >
-          <a href="/search?query=%E3%82%AD%E3%83%A3%E3%83%99%E3%83%84" className="DlyLink PcAside-keywordListItem">
-            キャベツ
-          </a>
-          <a href="/search?query=%E5%A4%A7%E6%A0%B9" className="DlyLink PcAside-keywordListItem">
-            大根
-          </a>
-          <a href="/search?query=%E7%99%BD%E8%8F%9C" className="DlyLink PcAside-keywordListItem">
-            白菜
-          </a>
-          <a href="/search?query=%E3%81%98%E3%82%83%E3%81%8C%E3%81%84%E3%82%82" className="DlyLink PcAside-keywordListItem">
-            じゃがいも
-          </a>
-          <a href="/search?query=%E3%82%82%E3%82%84%E3%81%97" className="DlyLink PcAside-keywordListItem">
-            もやし
-          </a>
-          <a href="/search?query=%E8%B1%9A%E8%82%89" className="DlyLink PcAside-keywordListItem">
-            豚肉
-          </a>
-          <a href="/search?query=%E3%81%AA%E3%81%99" className="DlyLink PcAside-keywordListItem">
-            なす
-          </a>
-          <a href="/search?query=%E9%B6%8F%E8%82%89" className="DlyLink PcAside-keywordListItem">
-            鶏肉
-          </a>
-          <a href="/search?query=%E3%81%8D%E3%82%85%E3%81%86%E3%82%8A" className="DlyLink PcAside-keywordListItem">
-            きゅうり
-          </a>
-          <a href="/search?query=%E5%B0%8F%E6%9D%BE%E8%8F%9C" className="DlyLink PcAside-keywordListItem">
-            小松菜
-          </a>
+          <KeyWordLink
+            className="DlyLink PcAside-keywordListItem"
+            keyWord={"ラーメン"}
+          ></KeyWordLink>
+          <KeyWordLink
+            className="DlyLink PcAside-keywordListItem"
+            keyWord={"つまみ"}
+          ></KeyWordLink>
+
         </div>
       </div>
       <div className="PcAside-keywords" >
@@ -60,38 +41,19 @@ const SideBar = () => {
           <div className="PcAside-sectionTitleBody" >
             その他のキーワード
           </div>
-          <a href="https://www.kurashiru.com/tags" className="PcAside-sectionTitle--more" >
+          {/* <a href="https://www.kurashiru.com/tags" className="PcAside-sectionTitle--more" >
             すべて見る
-          </a>
+          </a> */}
         </h2>
         <div className="PcAside-keywordList" >
-          <a href="/search?query=%E6%99%82%E7%9F%AD" className="DlyLink PcAside-keywordListItem">
-            時短
-          </a>
-          <a href="/search?query=%E7%B0%A1%E5%8D%98" className="DlyLink PcAside-keywordListItem">
-            簡単
-          </a>
-          <a href="/search?query=%E3%81%8A%E6%89%8B%E8%BB%BD" className="DlyLink PcAside-keywordListItem">
-            お手軽
-          </a>
-          <a href="/search?query=%E6%96%99%E7%90%86%E3%81%AE%E5%9F%BA%E6%9C%AC" className="DlyLink PcAside-keywordListItem">
-            料理の基本
-          </a>
-          <a href="/search?query=%E3%81%95%E3%81%95%E3%81%A3%E3%81%A8" className="DlyLink PcAside-keywordListItem">
-            ささっと
-          </a>
-          <a href="/search?query=%E3%83%98%E3%83%AB%E3%82%B7%E3%83%BC" className="DlyLink PcAside-keywordListItem">
-            ヘルシー
-          </a>
-          <a href="/search?query=%E3%81%93%E3%81%A9%E3%82%82%E3%81%8C%E5%96%9C%E3%81%B6" className="DlyLink PcAside-keywordListItem">
-            こどもが喜ぶ
-          </a>
-          <a href="/search?query=%E3%81%82%E3%81%A8%E3%82%82%E3%81%861%E5%93%81" className="DlyLink PcAside-keywordListItem">
-            あともう1品
-          </a>
-          <a href="/search?query=%E7%AF%80%E7%B4%84" className="DlyLink PcAside-keywordListItem">
-            節約
-          </a>
+          <KeyWordLink
+            className="DlyLink PcAside-keywordListItem"
+            keyWord={"ラーメン"}
+          ></KeyWordLink>
+          <KeyWordLink
+            className="DlyLink PcAside-keywordListItem"
+            keyWord={"つまみ"}
+          ></KeyWordLink>
         </div>
       </div>
       <div className="PcAside-stickyContainer" >

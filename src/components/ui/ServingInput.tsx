@@ -1,3 +1,4 @@
+import React, { useState, useEffect, useRef } from 'react';
 import { RecipeModel } from '../../module/RecipeModel';
 import { Const } from '../../module/Const';
 import Service from '../../module/Service';
@@ -5,6 +6,7 @@ import "../../SpMake.css";
 
 let service: Service = new Service()
 const ServingInput = (props) => {
+  
   return (
     <>
       <input

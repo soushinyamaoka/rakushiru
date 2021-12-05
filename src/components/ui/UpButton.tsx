@@ -8,7 +8,7 @@ const UpButton = (props) => {
       <button
         className="up-button"
         style={{ display: "inline-block" }}
-        onClick={() => service.upRow(props.index, props.model, props.setModel)}
+        onClick={() => service.upRow(props.index, props.modelList, props.setModel)}
       >↑</button>
     </>
   );

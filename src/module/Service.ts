@@ -1,11 +1,10 @@
 import axios from 'axios';
 import config from '../config.json';
-import { RecipeModel, KeyWord, Recipes, Ingredients, Instructions } from './RecipeModel';
+import { KeyWord, Ingredients, Instructions } from './RecipeModel';
 import { Const } from './Const';
 
 export default class Service {
   private model: any = null
-  // private instance: Service;
   static REQ_SAVE_RECIPE: string = "saveRecipe"
 
   public getUrl(key: string): string {
@@ -30,13 +29,23 @@ export default class Service {
     return url
   }
 
+  public getDefPath(): string {
+    const url: string = config.serveInfo.protocol +
+      config.serveInfo.host +
+      ":" +
+      config.serveInfo.port +
+      "/" +
+      config.default.image
+    return url
+  }
+
   public getRank1(): string {
-    
+
     return config.keyWord.rank1
   }
 
   public getKeyWord(): KeyWord[] {
-    return [{Word: config.keyWord.rank1}, {Word: config.keyWord.rank2}, {Word: config.keyWord.rank3}]
+    return [{ Word: config.keyWord.rank1 }, { Word: config.keyWord.rank2 }, { Word: config.keyWord.rank3 }]
   }
 
   public async send(req, file: File) {
@@ -57,8 +66,8 @@ export default class Service {
     return this.model
   }
 
-  public async openHome(req) {
-    console.log("SEND:openHome")
+  public async searchRecipe(req) {
+    console.log("SEND:searchRecipe")
     console.log(req)
     const axiosA = axios.post(this.getUrl(req.ReqCode), req)
     this.model = await axiosA;
@@ -66,7 +75,6 @@ export default class Service {
     console.log(this.model)
     return this.model
   }
-
 
   public async selectRecipe(req) {
     console.log("SEND")
@@ -97,10 +105,9 @@ export default class Service {
     return this.model
   }
 
-  // TODO：要共通化-------
-  public add (model, setModel, keyNo, recipeId) {
-    console.log(model)
-    if (keyNo === Const.RECIPE_INGRE_NO) {
+  public add(model, setModel, keyNo, recipeId) {
+    if (keyNo === Const.RECIPE_INGRE_NO &&
+      model.length < Const.LIMIT_INGRE_ROWS) {
       const ingredient: Ingredients = {
         RecipeId: recipeId,
         OrderNo: model.length + 1,
@@ -109,7 +116,7 @@ export default class Service {
         Quantity: ''
       }
       setModel([...model, ingredient])
-    } else {
+    } else if(model.length < Const.LIMIT_INTRO_ROWS) {
       const instructions: Instructions = {
         RecipeId: recipeId,
         OrderNo: model.length + 1,
@@ -128,14 +135,14 @@ export default class Service {
 
   };
 
-  public downRow(n, model, setModel){
+  public downRow(n, model, setModel) {
     if (n + 2 > model.length) return
     const model_copy = model.slice()
     model_copy.splice(n, 2, model_copy[n + 1], model_copy[n])
     setModel(model_copy)
   };
 
-  public delRow(n, model, setModel){
+  public delRow(n, model, setModel) {
     if (model.length === 1) return
     let model_copy = model.slice()
     model_copy.splice(n, 1)
@@ -143,7 +150,7 @@ export default class Service {
   };
 
   public changeValue(e: React.ChangeEvent<any>,
-    index: number, model: any, setModel: any, key: string){
+    index: number, model: any, setModel: any, key: string) {
     const value = e.target.value;
     if (model.length) {
       const model_copy = model.slice()
@@ -155,5 +162,22 @@ export default class Service {
       setModel(model_copy)
     }
   };
-  // ------------------
+
+  public onFileChange(e: React.ChangeEvent<HTMLInputElement>, setLocalFile, setFile) {
+
+    if (!e.target.files) return
+
+    const files: FileList = e.target.files
+    if (files.length > 0) {
+
+      const file = files[0]
+      var reader = new FileReader()
+      reader.onload = (e) => {
+        setLocalFile(String(e.target!.result))
+        setFile(file)
+      };
+      reader.readAsDataURL(file)
+    }
+  }
+
 }

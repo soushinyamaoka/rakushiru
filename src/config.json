@@ -2,8 +2,10 @@
     "serveInfo": {
         "protocol": "http://",
         "host": "localhost",
-        "port": "8080",
-        "searchRecipe": "recipeInfo",
+        "port": "1208",
+        "recipeInfo": "recipeInfo",
+        "searchRecipe": "searchRecipe",
+        "searchNewRecipe": "searchNewRecipe",
         "saveRecipe": "saveRecipe",
         "saveImage": "saveImage",
         "openHome": "openHome",
@@ -14,7 +16,7 @@
     },
     "keyWord": {
         "rank1": "ラーメン",
-        "rank2": "つまみ",
-        "rank3": "肉"
+        "rank2": "そば",
+        "rank3": "つまみ"
     }
 }
