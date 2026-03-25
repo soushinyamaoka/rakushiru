@@ -171,7 +171,7 @@ const Home = () => {
                           <div className="SpRoot-popularRecipeItem" >
                             <div className="SpRoot-popularRecipeSectionTitle" >
                               <div className="SpRoot-popularRecipeWord" >
-                                {keyWord2}
+                                {keyWord3}
                               </div>
                               <div className="SpRoot-popularRecipeMore" >
                                 <AllShowLink

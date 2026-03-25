@@ -87,7 +87,7 @@ const PcMakeRecipes = () => {
                 {(localFile) ? (
                   <img alt="" id="recipe-photo" className="uploader" src={localFile}></img>
                 ) : (!recipeModel.Image) ? (
-                  <img alt="" id="recipe-photo" className="uploader" src={defaultImage}></img>
+                  <img alt="" id="recipe-photo" className="uploader" src={service.getDefPath()}></img>
                 ) : (
                   <img alt="" id="recipe-photo" className="uploader" src={service.getImagePath(recipeModel[RecipeModel.IMAGE])}></img>
                 )}
